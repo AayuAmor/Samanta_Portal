@@ -417,6 +417,93 @@
     </div>
     </div>
     </div>
+    <!-- Legal Assistant Page -->
+      <div id="legal-assistant" class="page">
+        <div class="container">
+          <h1 class="section-title">AI Legal Assistant</h1>
+
+          <div
+            class="chatbot-container glass-card"
+            style="
+              border-radius: 24px;
+              overflow: hidden;
+              max-width: 2000px;
+              margin: 1rem auto;
+              height: 90vh;
+              display: flex;
+              flex-direction: column;
+            "
+            role="region"
+            aria-label="Legal assistant chatbot"
+          >
+            <div
+              class="chat-header"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+              "
+            >
+              <div style="display: flex; align-items: center; gap: 0.75rem">
+                <img
+                  src="assets/chat_logo.png"
+                  alt="Samanta Support"
+                  style="
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    border-radius: 50%;
+                    object-fit: cover;
+                  "
+                />
+                <div>
+                  <h3 style="margin: 0">Samanta Support</h3>
+                  <p
+                    id="status"
+                    style="font-size: 0.85rem; color: #16a34a; margin: 0"
+                  >
+                    Online
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="chat-messages"
+              id="chatMessages"
+              role="log"
+              aria-live="polite"
+              aria-atomic="false"
+            ></div>
+            <div class="chat-input-container">
+              <label for="chatInput" class="sr-only">Chat message</label>
+              <input
+                type="text"
+                class="chat-input"
+                id="chatInput"
+                placeholder="Type your question here..."
+                onkeypress="if(event.key==='Enter') sendMessage()"
+                aria-label="Type your legal question here"
+              />
+              <button
+                class="btn btn-primary"
+                onclick="sendMessage()"
+                aria-label="Send message"
+              >
+                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+              </button>
+              <span
+                id="voiceStatus"
+                class="form-help"
+                aria-live="polite"
+                aria-atomic="true"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+
   </main>
 </body>
 
