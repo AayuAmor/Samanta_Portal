@@ -1116,6 +1116,20 @@
 
 
   </main>
+  <!-- PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+      // Initialize chatbot topics/menu on load so users see options immediately
+      window.addEventListener("load", function () {
+        try {
+          if (typeof ensureChatInitialized === "function") {
+            ensureChatInitialized();
+          }
+        } catch (e) {
+          console.warn("Chat init failed", e);
+        }
+      });
+    </script>
 </body>
-
 </html>
