@@ -1,124 +1,193 @@
 <!DOCTYPE html>
 <html lang="ne">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Samanta Portal - लैंगिक समानता हाम्रो अभियान</title>
-    <link
-      rel="icon"
-      type="image/png"
-      href="assets/Logo_samanta_WebApp-modified.png"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 
-    <link rel="stylesheet" href="style.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Samanta Portal - लैंगिक समानता हाम्रो अभियान</title>
+  <link rel="icon" type="image/png" href="assets/Logo_samanta_WebApp-modified.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 
-  <body>
-    <!-- Navigation -->
-    <nav role="navigation" aria-label="Main navigation">
-      <div class="nav-container">
-        <a
-          href="#home"
-          onclick="showPage('home')"
-          data-page="home"
-          class="logo"
-          aria-label="Samanta Portal Home"
-        >
-          <img
-            src="assets/Logo_samanta_WebApp-modified.png"
-            alt="Samanta Portal emblem"
-          />
-          <span class="logo-text">Samanta Portal</span>
-        </a>
-        <ul class="nav-links" id="navLinks">
-          <li>
-            <a href="#home" onclick="showPage('home')" data-page="home">Home</a>
-          </li>
-          <li>
-            <a href="#" onclick="showPage('complaint')" data-page="complaint"
-              >Report</a
-            >
-          </li>
-          <li>
-            <a
-              href="#"
-              onclick="showPage('legal-assistant')"
-              data-page="legal-assistant"
-              >Legal AI</a
-            >
-          </li>
-          <li>
-            <a href="#rights" onclick="showPage('rights')" data-page="rights"
-              >Rights</a
-            >
-          </li>
-          <li>
-            <a href="#" onclick="showPage('about')" data-page="about">About</a>
-          </li>
-          <li>
-            <a href="#" onclick="showPage('contact')" data-page="contact"
-              >Contact</a
-            >
-          </li>
-        </ul>
-        <div class="hamburger" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="#home" onclick="showPage('home')" data-page="home" class="logo" aria-label="Samanta Portal Home">
+        <img src="assets/Logo_samanta_WebApp-modified.png" alt="Samanta Portal emblem" />
+        <span class="logo-text">Samanta Portal</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li>
+          <a href="#home" onclick="showPage('home')" data-page="home">Home</a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('complaint')" data-page="complaint">Report</a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('legal-assistant')" data-page="legal-assistant">Legal AI</a>
+        </li>
+        <li>
+          <a href="#rights" onclick="showPage('rights')" data-page="rights">Rights</a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('about')" data-page="about">About</a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('contact')" data-page="contact">Contact</a>
+        </li>
+      </ul>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <!-- Home Page -->
-    <main role="main">
-      <div id="home" class="page active">
-        <section class="hero">
-          <div class="hero-content">
-            <h1>सशक्तिकरण र समानताको लागि</h1>
-            <p class="nepali-text">
-              लैंगिक समानता हाम्रो अभियान<br />विभेद रहित सुन्दर समाजको निर्माण
-            </p>
-            <div class="cta-buttons">
-              <button
-                class="btn btn-primary"
-                onclick="showPage('legal-assistant')"
-              >
-                <img
-                  src="assets/chat_logo.png"
-                  alt="Chat assistant logo"
-                  style="
+  <!-- Home Page -->
+  <main role="main">
+    <div id="home" class="page active">
+      <section class="hero">
+        <div class="hero-content">
+          <h1>सशक्तिकरण र समानताको लागि</h1>
+          <p class="nepali-text">
+            लैंगिक समानता हाम्रो अभियान<br />विभेद रहित सुन्दर समाजको निर्माण
+          </p>
+          <div class="cta-buttons">
+            <button class="btn btn-primary" onclick="showPage('legal-assistant')">
+              <img src="assets/chat_logo.png" alt="Chat assistant logo" style="
                     height: 52px;
                     width: auto;
                     object-fit: contain;
                     margin-right: 0.35rem;
                     vertical-align: middle;
-                  "
-                />
-                Ask Legal Assistant
-              </button>
-              <button class="btn btn-secondary" onclick="showPage('complaint')">
-                <i class="fas fa-file-alt"></i> Report Complaint
-              </button>
+                  " />
+              Ask Legal Assistant
+            </button>
+            <button class="btn btn-secondary" onclick="showPage('complaint')">
+              <i class="fas fa-file-alt"></i> Report Complaint
+            </button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="assets/Logo_samanta_WebApp-modified.png" alt="Samanta Portal Logo - Symbol of equality and justice"
+            class="hero-illustration" />
+        </div>
+      </section>
+      <!-- How It Works -->
+      <section class="how-it-works">
+        <h2 class="section-title">यसरी काम गर्छ</h2>
+        <div class="steps">
+          <div class="step glass-card">
+            <div class="step-icon">
+              <i class="fas fa-user-edit"></i>
             </div>
+            <h3>Report Incident</h3>
+            <p>
+              Share your experience safely and anonymously through our secure
+              platform
+            </p>
           </div>
-          <div class="hero-image">
-            <img
-              src="assets/Logo_samanta_WebApp-modified.png"
-              alt="Samanta Portal Logo - Symbol of equality and justice"
-              class="hero-illustration"
-            />
+          <div class="step glass-card">
+            <div class="step-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h3>AI Analysis</h3>
+            <p>
+              Our AI assesses risk level and provides immediate legal guidance
+            </p>
           </div>
-        </section>
-    </main>
-  </body>
+          <div class="step glass-card">
+            <div class="step-icon">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+            <h3>Get Support</h3>
+            <p>
+              Connect with NGOs, legal aid, or police based on case severity
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rights by Gender (Preview) -->
+      <section class="container" id="rights-preview" aria-labelledby="rights-preview-title">
+        <h2 class="section-title" id="rights-preview-title">
+          अधिकार र संरक्षण
+        </h2>
+        <div class="rights-grid">
+          <div class="glass-card right-card">
+            <h3><i class="fas fa-female"></i> महिलाको अधिकार</h3>
+            <p>
+              Equal rights in property, employment, education, and protection
+              from violence and discrimination
+            </p>
+            <button class="btn btn-primary" onclick="showPage('rights')" style="margin-top: 1rem">
+              Learn More
+            </button>
+          </div>
+          <div class="glass-card right-card">
+            <h3><i class="fas fa-male"></i> पुरुषको अधिकार</h3>
+            <p>
+              Equal access to support services, parental rights, and
+              protection from harassment
+            </p>
+            <button class="btn btn-primary" onclick="showPage('rights')" style="margin-top: 1rem">
+              Learn More
+            </button>
+          </div>
+          <div class="glass-card right-card">
+            <h3><i class="fas fa-rainbow"></i> LGBTQIA+ अधिकार</h3>
+            <p>
+              Right to identity, non-discrimination, and equal treatment under
+              the law
+            </p>
+            <button class="btn btn-primary" onclick="showPage('rights')" style="margin-top: 1rem">
+              Learn More
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- NGO Partners -->
+      <section class="container" style="text-align: center; margin-top: 5rem">
+        <h2 class="section-title">Our Partners</h2>
+        <div style="
+              display: flex;
+              justify-content: center;
+              gap: 3rem;
+              flex-wrap: wrap;
+              margin-top: 2rem;
+            ">
+          <div class="glass-card" style="padding: 2rem 3rem">
+            <i class="fas fa-hands-helping" style="font-size: 3rem; color: var(--primary)"></i>
+            <p style="margin-top: 1rem; font-weight: 600">
+              NGO Network Nepal
+            </p>
+          </div>
+          <div class="glass-card" style="padding: 2rem 3rem">
+            <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--primary)"></i>
+            <p style="margin-top: 1rem; font-weight: 600">
+              Women Safety Forum
+            </p>
+          </div>
+          <div class="glass-card" style="padding: 2rem 3rem">
+            <i class="fas fa-balance-scale" style="font-size: 3rem; color: var(--primary)"></i>
+            <p style="margin-top: 1rem; font-weight: 600">
+              Legal Aid Society
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+
 </html>
