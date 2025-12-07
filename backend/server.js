@@ -12,7 +12,22 @@ const app = express();
 app.use(express.json());
 // CORS for frontend origin with cookies
 const CLIENT_URL = process.env.CLIENT_URL || "http://127.0.0.1:5500";
-app.use(cors({ origin: CLIENT_URL, credentials: true }));
+const ALLOWED_ORIGINS = new Set([
+  CLIENT_URL,
+  "http://localhost:5500",
+  "http://127.0.0.1:5500",
+  "http://localhost:3000",
+]);
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin) return callback(null, true);
+      if (ALLOWED_ORIGINS.has(origin)) return callback(null, true);
+      return callback(null, false);
+    },
+    credentials: true,
+  })
+);
 // Minimal CSP to allow frontend and API connections
 const API_ORIGIN =
   process.env.SERVER_PUBLIC_URL ||
@@ -82,7 +97,41 @@ db.serialize(() => {
   // Create a separate index for faster lookups
   db.run(`CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)`);
   db.run(`CREATE INDEX IF NOT EXISTS idx_users_username ON users(username)`);
+
+  // Complaints captured from the police complaint form
+  db.run(
+    `CREATE TABLE IF NOT EXISTS complaints (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      caseId TEXT NOT NULL,
+      fullName TEXT NOT NULL,
+      address TEXT NOT NULL,
+      phone TEXT NOT NULL,
+      email TEXT,
+      incidentDate TEXT,
+      dateUnknown INTEGER DEFAULT 0,
+      gender TEXT NOT NULL,
+      location TEXT NOT NULL,
+      complaintType TEXT NOT NULL,
+      description TEXT NOT NULL,
+      accused TEXT,
+      attachments TEXT,
+      createdAt TEXT NOT NULL
+    )`
+  );
+  db.run(
+    `CREATE INDEX IF NOT EXISTS idx_complaints_caseId ON complaints(caseId)`
+  );
 });
+
+// Case ID generator aligned with frontend format (#SCYYYYMMDD-1234)
+function generateCaseId() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const random = String(Math.floor(Math.random() * 9999)).padStart(4, "0");
+  return `#SC${year}${month}${day}-${random}`;
+}
 
 // Passport serialize/deserialize
 passport.serializeUser((user, done) => {
@@ -313,6 +362,99 @@ app.post("/api/auth/logout", (req, res) => {
         return res.status(500).json({ error: "Error destroying session." });
       }
       res.json({ success: true, message: "Logged out successfully." });
+    });
+  });
+});
+
+// Police complaint intake (matches frontend form fields)
+app.post("/api/complaints", (req, res) => {
+  const {
+    fullName,
+    address,
+    phone,
+    email,
+    incidentDate,
+    dateUnknown,
+    gender,
+    location,
+    type,
+    description,
+    accused,
+  } = req.body || {};
+
+  if (
+    !fullName ||
+    !address ||
+    !phone ||
+    !gender ||
+    !location ||
+    !type ||
+    !description
+  ) {
+    return res.status(400).json({ error: "Missing required fields." });
+  }
+
+  if (!/^[0-9]{7,15}$/.test(String(phone).trim())) {
+    return res.status(400).json({ error: "Phone must be 7-15 digits." });
+  }
+
+  if (email && !/^([^@\s]+)@([^@\s]+)\.[^@\s]+$/.test(String(email).trim())) {
+    return res.status(400).json({ error: "Invalid email format." });
+  }
+
+  if (!dateUnknown && !incidentDate) {
+    return res
+      .status(400)
+      .json({ error: "Incident date is required unless marked unknown." });
+  }
+
+  const entry = {
+    caseId: generateCaseId(),
+    fullName: String(fullName).trim(),
+    address: String(address).trim(),
+    phone: String(phone).trim(),
+    email: email ? String(email).trim() : null,
+    incidentDate: dateUnknown ? null : String(incidentDate).trim(),
+    dateUnknown: dateUnknown ? 1 : 0,
+    gender: String(gender).trim(),
+    location: String(location).trim(),
+    complaintType: String(type).trim(),
+    description: String(description).trim(),
+    accused: accused ? String(accused).trim() : null,
+    attachments: null, // Placeholder for future file uploads
+    createdAt: new Date().toISOString(),
+  };
+
+  const sql = `INSERT INTO complaints (caseId, fullName, address, phone, email, incidentDate, dateUnknown, gender, location, complaintType, description, accused, attachments, createdAt)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  const params = [
+    entry.caseId,
+    entry.fullName,
+    entry.address,
+    entry.phone,
+    entry.email,
+    entry.incidentDate,
+    entry.dateUnknown,
+    entry.gender,
+    entry.location,
+    entry.complaintType,
+    entry.description,
+    entry.accused,
+    entry.attachments,
+    entry.createdAt,
+  ];
+
+  db.run(sql, params, function (err) {
+    if (err) {
+      console.error("DB insert error (complaint):", err);
+      return res
+        .status(500)
+        .json({ error: "Database error while saving complaint." });
+    }
+    res.json({
+      success: true,
+      caseId: entry.caseId,
+      complaint: { id: this.lastID, ...entry },
     });
   });
 });
