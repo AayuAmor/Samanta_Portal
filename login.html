@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login • Samanta Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body
+    style="
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto,
+        'Helvetica Neue', Arial;
+    "
+  >
+    <main class="auth-layout" role="main">
+      <section class="auth-hero">
+        <div class="auth-brand">
+          <img
+            src="assets/Logo_samanta_WebApp-modified.png"
+            alt="Samanta Portal logo"
+            onerror="this.style.display='none'"
+          />
+          <span class="brand-text">Samanta Portal</span>
+        </div>
+        <h1>नमस्कार, स्वागत छ!</h1>
+        <p>
+          Join the movement for safer communities. Access your account to
+          continue filing complaints, tracking cases, and using our legal
+          assistant.
+        </p>
+      </section>
+      <section class="auth-panel">
+        <div class="auth-card" aria-labelledby="authTitle">
+          <h2 id="authTitle">Welcome Back</h2>
+          <form class="auth-form" novalidate id="loginForm">
+            <div class="form-group">
+              <label for="loginCredential">Username or Email</label>
+              <input
+                type="text"
+                id="loginCredential"
+                name="credential"
+                placeholder="Enter your username or email"
+                required
+                aria-required="true"
+              />
+              <span class="error-message" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <input
+                type="password"
+                id="loginPassword"
+                name="password"
+                placeholder="Enter your password"
+                required
+                aria-required="true"
+              />
+              <span class="error-message" role="alert"></span>
+            </div>
+            <div class="auth-actions">
+              <div>
+                <label style="display: flex; align-items: center; gap: 0.5rem">
+                  <input type="checkbox" id="rememberMe" name="rememberMe" />
+                  <span>Remember me</span>
+                </label>
+              </div>
+              <a href="#" aria-label="Forgot password link">Forgot Password?</a>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary auth-submit"
+              id="loginBtn"
+            >
+              Login
+            </button>
+            <div class="auth-or"><span>OR</span></div>
+            <div class="auth-social" aria-label="Social login options">
+              <button
+                type="button"
+                aria-label="Login with Google"
+                onclick="window.location.href='http://localhost:3000/auth/google'"
+                style="grid-column: 1 / -1"
+              >
+                <i class="fab fa-google"></i> Login with Google
+              </button>
+            </div>
+            <p class="auth-foot">
+              Don’t have an account? <a href="register.html">Sign Up</a>
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+    <script>
+      const loginForm = document.getElementById("loginForm");
+      const loginBtn = document.getElementById("loginBtn");
+      const credential = document.getElementById("loginCredential");
+      const password = document.getElementById("loginPassword");
+
+      // Real-time validation
+      credential.addEventListener("blur", validateForm);
+      credential.addEventListener("input", validateForm);
+      password.addEventListener("blur", validateForm);
+      password.addEventListener("input", validateForm);
+
+      function validateForm() {
+        let credentialError = "";
+        let passwordError = "";
+
+        if (credential.value.trim().length === 0) {
+          credentialError = "Username or email is required";
+        }
+
+        if (password.value.length === 0) {
+          passwordError = "Password is required";
+        } else if (password.value.length < 8) {
+          passwordError = "Password must be at least 8 characters";
+        }
+
+        const credentialErrorSpan = credential
+          .closest(".form-group")
+          ?.querySelector(".error-message");
+        const passwordErrorSpan = password
+          .closest(".form-group")
+          ?.querySelector(".error-message");
+
+        if (credentialErrorSpan) {
+          credentialErrorSpan.textContent = credentialError;
+          if (credentialError) {
+            credential.setAttribute("aria-invalid", "true");
+          } else {
+            credential.removeAttribute("aria-invalid");
+          }
+        }
+
+        if (passwordErrorSpan) {
+          passwordErrorSpan.textContent = passwordError;
+          if (passwordError) {
+            password.setAttribute("aria-invalid", "true");
+          } else {
+            password.removeAttribute("aria-invalid");
+          }
+        }
+
+        loginBtn.disabled = credentialError !== "" || passwordError !== "";
+      }
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        validateForm();
+        if (loginBtn.disabled) return;
+
+        loginBtn.disabled = true;
+        loginBtn.textContent = "Logging in...";
+
+        const data = {
+          credential: credential.value.trim(),
+          password: password.value,
+        };
+
+        try {
+          const response = await fetch("http://localhost:3000/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify(data),
+          });
+
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.error || "Login failed");
+          }
+
+          // Success - redirect to portal
+          console.log("Logged in:", result.user);
+          window.location.href = "index.html";
+        } catch (error) {
+          console.error("Login error:", error);
+          alert(`Login failed: ${error.message}`);
+          loginBtn.disabled = false;
+          loginBtn.textContent = "Login";
+        }
+      });
+
+      // Handle Google OAuth redirect
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        const status = params.get("auth");
+        if (status === "success") {
+          // User is already logged in via Google, redirect to index
+          console.log("Google login successful");
+          window.location.href = "index.html";
+        }
+      })();
+
+      // Initial button state
+      validateForm();
+    </script>
+  </body>
+</html>
