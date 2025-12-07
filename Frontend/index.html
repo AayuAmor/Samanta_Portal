@@ -139,7 +139,7 @@
               Equal access to support services, parental rights, and
               protection from harassment
             </p>
-            <button class="btn btn-primary" onclick="showPage('rights')" style="margin-top: 1rem">
+            <button class="btn btn-primary" onclick="showPage('rights'); setTimeout(() => document.getElementById('men-rights-section').scrollIntoView({behavior: 'smooth', block: 'center'}), 100)" style="margin-top: 1rem">
               Learn More
             </button>
           </div>
@@ -149,7 +149,7 @@
               Right to identity, non-discrimination, and equal treatment under
               the law
             </p>
-            <button class="btn btn-primary" onclick="showPage('rights')" style="margin-top: 1rem">
+            <button class="btn btn-primary" onclick="window.open('LGBTQIA.html', '_blank')" style="margin-top: 1rem">
               Learn More
             </button>
           </div>
@@ -529,7 +529,7 @@
         </section>
 
         <!-- Men's Rights -->
-        <section style="margin-top: 3rem">
+        <section id="men-rights-section" style="margin-top: 3rem">
           <h2 style="color: var(--primary); margin-bottom: 1.5rem">
             <i class="fas fa-male"></i> पुरुषको अधिकार (Men's Rights)
           </h2>
@@ -568,35 +568,15 @@
           <h2 style="color: var(--primary); margin-bottom: 1.5rem">
             <i class="fas fa-rainbow"></i> LGBTQIA+ अधिकार
           </h2>
-          <div class="accordion-item glass-card">
-            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
-              aria-expanded="false" aria-controls="accordion-content-6"
-              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
-              <span>Right to Identity</span>
-              <i class="fas fa-chevron-down" aria-hidden="true"></i>
-            </div>
-            <div class="accordion-content" id="accordion-content-6">
-              <p>
-                Nepal recognizes third gender. Citizens can obtain citizenship
-                certificates with their gender identity. Supreme Court ruling
-                (2007) affirmed LGBTQIA+ rights.
-              </p>
-            </div>
-          </div>
-          <div class="accordion-item glass-card">
-            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
-              aria-expanded="false" aria-controls="accordion-content-7"
-              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
-              <span>Non-Discrimination</span>
-              <i class="fas fa-chevron-down" aria-hidden="true"></i>
-            </div>
-            <div class="accordion-content" id="accordion-content-7">
-              <p>
-                Constitutional protection from discrimination based on sexual
-                orientation and gender identity. Equal access to public
-                services, employment, and education.
-              </p>
-            </div>
+          <div class="glass-card right-card">
+            <h3><i class="fas fa-rainbow"></i> LGBTQIA+ अधिकार</h3>
+            <p>
+              Right to identity, non-discrimination, and equal treatment under
+              the law. Access comprehensive information on legal rights, mental health support, and assistance organizations.
+            </p>
+            <button class="btn btn-primary" onclick="window.open('LGBTQIA.html', '_blank')" style="margin-top: 1rem">
+              Learn More
+            </button>
           </div>
         </section>
 
