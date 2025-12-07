@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ne">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LGBTQIA+ पोर्टल - Samanta Portal</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="assets/Logo_samanta_WebApp-modified.png"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.8;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+
+      .header {
+        background: linear-gradient(to right, #003d82, #0066cc);
+        color: white;
+        padding: 25px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .header h1 {
+        font-size: 2em;
+        margin-bottom: 5px;
+      }
+
+      .header p {
+        font-size: 1.1em;
+        opacity: 0.9;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 20px;
+      }
+
+      .welcome-box {
+        background: white;
+        border-left: 5px solid #0066cc;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .welcome-box h2 {
+        color: #003d82;
+        margin-bottom: 15px;
+      }
+
+      .welcome-box p {
+        margin-bottom: 12px;
+      }
+
+      .section {
+        background: white;
+        padding: 30px;
+        margin-bottom: 25px;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+
+      .section h2 {
+        color: #003d82;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #0066cc;
+        font-size: 1.5em;
+      }
+
+      .section h3 {
+        color: #0066cc;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        font-size: 1.2em;
+      }
+
+      ul {
+        margin-left: 25px;
+        margin-bottom: 15px;
+      }
+
+      ul li {
+        margin-bottom: 10px;
+        line-height: 1.8;
+      }
+
+      .highlight-box {
+        background: #e6f2ff;
+        border: 1px solid #0066cc;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 3px;
+      }
+
+      .highlight-box strong {
+        color: #003d82;
+      }
+
+      .support-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        border: 1px solid #ddd;
+      }
+
+      .support-table th {
+        background: #003d82;
+        color: white;
+        padding: 12px;
+        text-align: left;
+        font-weight: bold;
+      }
+
+      .support-table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        vertical-align: top;
+      }
+
+      .support-table tr:nth-child(even) {
+        background: #f9f9f9;
+      }
+
+      .contact-info {
+        background: #e6f2ff;
+        padding: 10px;
+        border-radius: 3px;
+        margin-top: 5px;
+        font-size: 0.95em;
+      }
+
+      .footer {
+        background: #003d82;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+      }
+
+      .footer p {
+        margin: 5px 0;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 1.5em;
+        }
+
+        .container {
+          padding: 0 15px;
+        }
+
+        .section {
+          padding: 20px;
+        }
+
+        .support-table {
+          font-size: 0.85em;
+        }
+
+        .support-table th,
+        .support-table td {
+          padding: 8px;
+        }
+      }
+
+      @media print {
+        body {
+          background: white;
+        }
+
+        .section {
+          box-shadow: none;
+          page-break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-content">
+        <h1>Samanta Portal</h1>
+        <p>LGBTQIA+ समुदायका लागि</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="welcome-box">
+        <p><strong>तपाईं जस्तो हुनुहुन्छ—त्यही नै पर्याप्त छ।</strong></p>
+        <p>
+          तपाईंको पहिचान, तपाईंको जीवन, तपाईंको भावना–सबैको सम्मान यो
+          प्लेटफर्मको मूल मूल्य हो। यहाँ, तपाईंले लैंगिक समानताका अधिकार (धारा
+          १८) देखि यौन उत्पीडन, मानव बेचबिखन, दाम्पत्य हिंसा जस्ता गम्भीर
+          अपराधका विरुद्ध कानुनी सुरक्षा बारे स्पष्ट जानकारी पाउनुहुन्छ।
+        </p>
+        <p>
+          <strong
+            >यदि तपाईंले कहिल्यै भेदभाव, दुर्व्यवहार वा हिंसा भोग्नुपर्‍यो भने,
+            तपाईं एक्ला हुनुहुन्न—Samanta Portal तपाईंको साथमा छ।</strong
+          >
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>१) तपाईंको कानूनी अधिकार (Legal Rights)</h2>
+        <p>
+          नेपालको संविधानले LGBTQIA+ व्यक्तिलाई निम्न अधिकार स्पष्ट रूपमा दिन्छ:
+        </p>
+        <ul>
+          <li>
+            <strong>तेस्रो लिङ्गको पहिचानको अधिकार</strong> — नागरिकता,
+            पासपोर्ट, सरकारी सेवा सबैमा प्रयोग गर्न सकिने।
+          </li>
+          <li>
+            <strong>समानताको अधिकार</strong> — लिङ्ग, लैंगिक पहिचान वा
+            समलैंगिकताका कारण कुनै संस्थाले भेदभाव गर्न पाउने छैन (धारा १८)।
+          </li>
+          <li>
+            <strong>समावेशीताको अधिकार</strong> — राज्यले लैंगिक अल्पसंख्यकलाई
+            अवसर र सुरक्षा दिनुपर्ने (धारा ४२)।
+          </li>
+        </ul>
+        <div class="highlight-box">
+          <strong>सरल शब्दमा:</strong> तपाईंलाई अरू सबै नागरिकजस्तै समान अधिकार
+          मिल्छ। कुनै पनि प्रकारको भेदभाव गैरकानुनी हो।
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>
+          २) भेदभाव वा दुर्व्यवहार भए के गर्ने? (If Discrimination Happens)
+        </h2>
+        <p>यदि तपाईँलाई:</p>
+        <ul>
+          <li>अपमानजनक टिप्पणी गरियो भने</li>
+          <li>सेवा/रोजगारी नदिइयो भने</li>
+          <li>विद्यालय/काम गर्ने ठाउँमा हेपियो भने</li>
+          <li>सार्वजनिक स्थानमा दुर्व्यवहार भयो भने</li>
+        </ul>
+        <div class="highlight-box">
+          <strong
+            >यी सबै Criminal Code Section 161–167 अनुसार दण्डनीय अपराध
+            हुन्।</strong
+          >
+        </div>
+        <h3>तपाईं गर्न सक्नुहुन्छ:</h3>
+        <ul>
+          <li>Samanta Portal मा गोप्य उजुरी दर्ता</li>
+          <li>नजिकको प्रहरी/महिला–बालबालिका डेस्कमा उजुरी</li>
+          <li>LGBTQIA+ केन्द्रित NGO सँग सम्पर्क</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>
+          ३) मानसिक स्वास्थ्य र सुरक्षित स्थान (Mental Health & Safe Space)
+        </h2>
+        <h3>LGBTQIA+ समुदायले अक्सर भोग्ने समस्याहरू:</h3>
+        <ul>
+          <li>घर/समाजबाट अस्वीकार</li>
+          <li>'कमिङ–आउट' को डर</li>
+          <li>डिप्रेसन, चिन्ता, एक्लोपन</li>
+        </ul>
+        <h3>हाम्रो प्लेटफर्मले प्रदान गर्छ:</h3>
+        <ul>
+          <li>मनोवैज्ञानिक सहयोग दिने LGBTQ+ अनुकूल NGO को सूची</li>
+          <li>सुरक्षित shelter home को जानकारी</li>
+          <li>भेदभाव–रहित lawyer consultation</li>
+        </ul>
+        <div class="highlight-box">
+          <strong
+            >तपईको भावनात्मक सुरक्षा पनि कानूनी सुरक्षा जत्तिकै महत्त्वपूर्ण
+            छ।</strong
+          >
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>LGBTQIA+ समुदायका लागि सहायता प्रदान गर्ने संस्थाहरू (नेपाल)</h2>
+
+        <table class="support-table">
+          <thead>
+            <tr>
+              <th>संस्था / समूह</th>
+              <th>मुख्य सेवा</th>
+              <th>सम्पर्क विवरण</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong
+                  >ब्लू डाइमन्ड सोसाइटी<br />(Blue Diamond Society –
+                  BDS)</strong
+                >
+              </td>
+              <td>
+                कानुनी परामर्श, HIV परीक्षण/परामर्श, आश्रयस्थल/रेफरल,
+                मानसिक–सामाजिक समर्थन
+              </td>
+              <td>
+                <div class="contact-info">
+                  फोन: +977-1-4269761<br />
+                  फेसबुक: facebook.com/bluediamondsocietynepal<br />
+                  कार्यालय: काठमाडौं
+                  <a href="https://course.bds.org.np/"
+                    ><br />कार्यालय वेबसाइट</a
+                  >
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>क्वियर युवा समूह<br />(Queer Youth Group – QYG)</strong>
+              </td>
+              <td>
+                युवा नेतृत्व विकास, कानुनी अधिकार प्रशिक्षण, सुरक्षित समुदाय,
+                परामर्श
+              </td>
+              <td>
+                <div class="contact-info">
+                  फेसबुक: facebook.com/QYGnepal<br />
+                  WhatsApp: 9851350665<br />
+                  <a href="https://www.queeryouthgroup.org.np/en"
+                    >कार्यालय वेबसाइट</a
+                  >
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>मितिनी नेपाल<br />(Mitini Nepal)</strong>
+              </td>
+              <td>
+                लेस्बियन, बाइसेक्सुअल, ट्रान्स पुरुष समर्थन, आश्रयस्थल,
+                स्वास्थ्य/कानुनी सेवा
+              </td>
+              <td>
+                <div class="contact-info">
+                  फेसबुक पनि उपलब्ध<br />
+                  कार्यालय: काठमाडौं
+                  <a href="https://mitininepal.org.np/"
+                    ><br />कार्यालय वेबसाइट</a
+                  >
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong
+                  >इन्क्लुसिभ फोरम नेपाल<br />(Inclusive Forum Nepal)</strong
+                >
+              </td>
+              <td>सामाजिक समावेशिता, केस रेफरल, स्वास्थ्य सहायता</td>
+              <td>
+                <div class="contact-info">
+                  स्थानीय NGOs र अनलाइन सम्पर्क<br />
+                  <a href="https://www.ifn.org.np/">कार्यालय वेबसाइट</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong
+                  >स्थानिय क्वियर समूहहरू<br />(Local Queer Collectives)</strong
+                >
+              </td>
+              <td>समस्या समाधान, समर्थन समूह, हिंसाका प्रमाण संकलन</td>
+              <td>
+                <div class="contact-info">
+                  सामुदायिक सदस्य र सामाजिक सञ्जाल<br />
+                  (WhatsApp, Facebook) मार्फत
+                  <a href="https://www.queeryouthgroup.org.np/en"
+                    ><br />कार्यालय वेबसाइट</a
+                  >
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
