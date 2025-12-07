@@ -1,14 +1,14 @@
 // Handle authentication callback on page load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   const params = new URLSearchParams(window.location.search);
-  const authStatus = params.get('auth');
-  
-  if (authStatus === 'success') {
-    alert('Login successful! Redirecting to dashboard...');
+  const authStatus = params.get("auth");
+
+  if (authStatus === "success") {
+    alert("Login successful! Redirecting to dashboard...");
     // Redirect to your main page
-    window.location.href = 'index.html';
-  } else if (authStatus === 'error') {
-    alert('Login failed. Please try again.');
+    window.location.href = "index.html";
+  } else if (authStatus === "error") {
+    alert("Login failed. Please try again.");
     // Clear the URL
     window.history.replaceState({}, document.title, window.location.pathname);
   }
@@ -35,13 +35,13 @@ function showPage(pageId) {
 }
 
 // Generate unique Case ID
-function generateCaseId() {
+function generateCaseId(prefix = "SC") {
   const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   const random = String(Math.floor(Math.random() * 9999)).padStart(4, "0");
-  return `#SC${year}${month}${day}-${random}`;
+  return `#${prefix}${year}${month}${day}-${random}`;
 }
 
 // Small helper to load the Samanta logo as a data URL for jsPDF
@@ -63,13 +63,16 @@ function loadLogoDataUrl(src) {
 }
 
 // Download PDF using jsPDF & autoTable (with logo)
-async function downloadPDF() {
+async function downloadPDF(targetOverride) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF("portrait", "mm", "a4");
 
-  const caseIdEl = document.getElementById("caseIdValue");
-  const caseId = caseIdEl ? caseIdEl.textContent : generateCaseId();
   const form = document.getElementById("complaintForm");
+  const activeTarget = targetOverride || form?.dataset.target || "police";
+  const prefix = activeTarget === "lawyer" ? "SL" : "SC";
+
+  const caseIdEl = document.getElementById("caseIdValue");
+  const caseId = caseIdEl ? caseIdEl.textContent : generateCaseId(prefix);
   if (!form) return;
   const formData = new FormData(form);
 
@@ -94,7 +97,9 @@ async function downloadPDF() {
 
   doc.setFontSize(13);
   doc.setFont("Helvetica", "normal");
-  doc.text("POLICE COMPLAINT FORM", 105, 22, { align: "center" });
+  const formTitle =
+    activeTarget === "lawyer" ? "LAWYER SUPPORT FORM" : "POLICE COMPLAINT FORM";
+  doc.text(formTitle, 105, 22, { align: "center" });
 
   doc.setFontSize(10);
   doc.text(`Case ID: ${caseId}`, 15, 30);
@@ -397,6 +402,7 @@ const chatTopics = [
 ];
 
 let chatInitialized = false;
+let activeReportTarget = "police";
 
 function ensureChatInitialized() {
   if (chatInitialized) return;
@@ -892,9 +898,74 @@ window.addEventListener("load", function () {
   const successStep = document.getElementById("successStep");
   const dateUnknown = document.getElementById("dateUnknown");
   const incidentDate = document.getElementById("incidentDate");
+  const reportToggleButtons = document.querySelectorAll(".report-toggle-btn");
+  const reportFormTitle = document.getElementById("reportFormTitle");
+  const reportFormSubtitle = document.getElementById("reportFormSubtitle");
+  const successTitle = document.getElementById("successTitle");
+  const successSub = document.getElementById("successSub");
+  const successTargetValue = document.getElementById("successTargetValue");
 
   function showMessage(msg) {
     alert(msg);
+  }
+
+  const reportCopy = {
+    police: {
+      heading: reportFormTitle?.dataset.police,
+      subtitle:
+        "कृपया सत्यता साथ सबै आवश्यक विवरण भर्नुहोस्। तपाईंको जानकारी सुरक्षित राखिनेछ।",
+      successHeading:
+        "उजुरी सफलतापूर्वक दर्ता भयो / Report Submitted Successfully",
+      successSub:
+        "Your complaint has been registered. We will review your case and connect you with appropriate support within 24 hours.",
+      buttonLabel: "उजुरी पेश गर्नुहोस् / Submit Complaint",
+      targetLabel: "Police",
+    },
+    lawyer: {
+      heading: reportFormTitle?.dataset.lawyer,
+      subtitle:
+        "कानूनी सहयोगको लागि विवरणहरू भर्नुहोस्। हामी तपाईंलाई वकिलसँग जडान गर्छौं।",
+      successHeading: "कानूनी सहयोग अनुरोध पठाइयो / Lawyer Request Submitted",
+      successSub:
+        "Your request has been shared with our lawyer network. A legal advisor will reach out within 24 hours.",
+      buttonLabel: "वकिलसँग सम्पर्क / Submit Lawyer Request",
+      targetLabel: "Lawyer",
+    },
+  };
+
+  function setReportTarget(target) {
+    activeReportTarget = target === "lawyer" ? "lawyer" : "police";
+
+    // Toggle button states
+    reportToggleButtons.forEach((btn) => {
+      const isActive = btn.dataset.target === activeReportTarget;
+      btn.classList.toggle("active", isActive);
+      btn.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
+
+    if (complaintForm) {
+      complaintForm.dataset.target = activeReportTarget;
+    }
+
+    const copy = reportCopy[activeReportTarget];
+    if (reportFormTitle && copy?.heading) {
+      reportFormTitle.textContent = copy.heading;
+    }
+    if (reportFormSubtitle) {
+      reportFormSubtitle.textContent = copy?.subtitle || "";
+    }
+    if (submitBtn && copy?.buttonLabel) {
+      submitBtn.textContent = copy.buttonLabel;
+    }
+    if (successTitle && copy?.successHeading) {
+      successTitle.textContent = copy.successHeading;
+    }
+    if (successSub && copy?.successSub) {
+      successSub.textContent = copy.successSub;
+    }
+    if (successTargetValue && copy?.targetLabel) {
+      successTargetValue.textContent = copy.targetLabel;
+    }
   }
 
   function validateRequiredFields() {
@@ -955,17 +1026,20 @@ window.addEventListener("load", function () {
 
       if (!validateRequiredFields()) {
         submitBtn.disabled = false;
-        submitBtn.textContent = "उजुरी पेश गर्नुहोस् / Submit Complaint";
+        submitBtn.textContent = reportCopy[activeReportTarget]?.buttonLabel;
         return;
       }
 
       setTimeout(() => {
-        showMessage(
-          "उजुरी सफलतापूर्वक दर्ता भयो।\nComplaint Submitted Successfully."
-        );
+        const successMsg =
+          activeReportTarget === "lawyer"
+            ? "कानूनी सहयोग अनुरोध दर्ता भयो।\nLawyer request submitted."
+            : "उजुरी सफलतापूर्वक दर्ता भयो।\nComplaint Submitted Successfully.";
+        showMessage(successMsg);
 
         // Generate and display case ID
-        const caseId = generateCaseId();
+        const prefix = activeReportTarget === "lawyer" ? "SL" : "SC";
+        const caseId = generateCaseId(prefix);
         const caseIdValue = document.getElementById("caseIdValue");
         if (caseIdValue) {
           caseIdValue.textContent = caseId;
@@ -978,7 +1052,7 @@ window.addEventListener("load", function () {
         }
 
         submitBtn.disabled = false;
-        submitBtn.textContent = "उजुरी पेश गर्नुहोस् / Submit Complaint";
+        submitBtn.textContent = reportCopy[activeReportTarget]?.buttonLabel;
       }, 800);
     });
   }
@@ -1005,6 +1079,12 @@ window.addEventListener("load", function () {
       }
     });
   }
+
+  // Set initial report target and listeners
+  setReportTarget(activeReportTarget);
+  reportToggleButtons.forEach((btn) => {
+    btn.addEventListener("click", () => setReportTarget(btn.dataset.target));
+  });
 });
 
 // Mobile menu toggle function

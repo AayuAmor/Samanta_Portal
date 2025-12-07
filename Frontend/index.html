@@ -201,12 +201,23 @@
           </div>
         </div>
 
-        <h1 class="section-title" style="text-align:center;">उजुरी / Police Complaint Form — समानता पोर्टल</h1>
-        <p style="text-align:center; margin-bottom:2rem; color:#0b3b62; opacity:0.9;">कृपया सत्यता साथ सबै आवश्यक विवरण
-          भर्नुहोस्। तपाईंको जानकारी सुरक्षित राखिनेछ।</p>
+        <div class="report-toggle" role="tablist" aria-label="Report destination selector">
+          <button type="button" class="report-toggle-btn active" data-target="police" role="tab"
+            aria-selected="true">🚔 Report to Police</button>
+          <button type="button" class="report-toggle-btn" data-target="lawyer" role="tab"
+            aria-selected="false">⚖️ Report to Lawyer</button>
+        </div>
+
+        <h1 class="section-title" id="reportFormTitle" data-police="उजुरी / Police Complaint Form — समानता पोर्टल"
+          data-lawyer="कानूनी सहयोग फारम / Lawyer Support Form — समानता पोर्टल" style="text-align:center;">
+          उजुरी / Police Complaint Form — समानता पोर्टल
+        </h1>
+        <p id="reportFormSubtitle" style="text-align:center; margin-bottom:2rem; color:#0b3b62; opacity:0.9;">
+          कृपया सत्यता साथ सबै आवश्यक विवरण भर्नुहोस्। तपाईंको जानकारी सुरक्षित राखिनेछ।
+        </p>
 
         <div class="form-container glass-card">
-          <form id="complaintForm" novalidate>
+          <form id="complaintForm" novalidate data-target="police">
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:14px;">
 
               <!-- Full name -->
@@ -409,12 +420,15 @@
               <div class="success-icon">
                 <i class="fas fa-check"></i>
               </div>
-              <h2>उजुरी सफलतापूर्वक दर्ता भयो / Report Submitted Successfully</h2>
-              <p>
+              <h2 id="successTitle">उजुरी सफलतापूर्वक दर्ता भयो / Report Submitted Successfully</h2>
+              <p id="successSub">
                 Your complaint has been registered. We will review your case and connect you with appropriate support
                 within 24 hours.
               </p>
-              <p id="caseId" style="font-size: 0.95rem; color: var(--primary); font-weight: 600; margin: 1rem 0;">
+              <p id="successTarget" style="font-size: 0.95rem; color: var(--text-light); margin: 0.5rem 0 0.25rem;">
+                Filed to: <span id="successTargetValue">Police</span>
+              </p>
+              <p id="caseId" style="font-size: 0.95rem; color: var(--primary); font-weight: 600; margin: 0.5rem 0 1rem;">
                 Case ID: <span id="caseIdValue">#SC2025-00001</span>
               </p>
               <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
