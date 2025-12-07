@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register • Samanta Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body
+    style="
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto,
+        'Helvetica Neue', Arial;
+    "
+  >
+    <main class="auth-layout" role="main">
+      <section class="auth-hero">
+        <div class="auth-brand">
+          <img
+            src="assets/Logo_samanta_WebApp-modified.png"
+            alt="Samanta Portal logo"
+            onerror="this.style.display='none'"
+          />
+          <span class="brand-text">Samanta Portal</span>
+        </div>
+        <h1>Join Us</h1>
+        <p>
+          Create your account to report incidents, get guidance from our legal
+          assistant, and track your submissions securely.
+        </p>
+      </section>
+      <section class="auth-panel">
+        <div class="auth-card" aria-labelledby="regTitle">
+          <h2 id="regTitle">Create Account</h2>
+          <p class="auth-subtitle">
+            It takes less than a minute to get started.
+          </p>
+          <form class="auth-form" novalidate id="registerForm">
+            <div class="form-group">
+              <label for="regName">Full Name</label>
+              <input
+                type="text"
+                id="regName"
+                name="fullName"
+                placeholder="Your full name"
+                required
+                aria-required="true"
+              />
+              <span class="error-message" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="regUsername">Username</label>
+              <input
+                type="text"
+                id="regUsername"
+                name="username"
+                placeholder="Choose a username (3-20 chars, alphanumeric + underscore)"
+                required
+                aria-required="true"
+                pattern="^[a-zA-Z0-9_]{3,20}$"
+              />
+              <span class="form-help"
+                >3-20 characters, letters, numbers, and underscore only</span
+              >
+              <span class="error-message" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="regEmail">Email</label>
+              <input
+                type="email"
+                id="regEmail"
+                name="email"
+                placeholder="you@example.com"
+                required
+                aria-required="true"
+              />
+              <span class="error-message" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="regPassword">Password</label>
+              <input
+                type="password"
+                id="regPassword"
+                name="password"
+                placeholder="Choose a strong password (min 8 characters)"
+                required
+                aria-required="true"
+                minlength="8"
+              />
+              <span class="form-help">At least 8 characters long</span>
+              <span class="error-message" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="regConfirm">Confirm Password</label>
+              <input
+                type="password"
+                id="regConfirm"
+                name="confirmPassword"
+                placeholder="Re-enter your password"
+                required
+                aria-required="true"
+              />
+              <span class="error-message" role="alert"></span>
+            </div>
+            <div class="form-group terms-checkbox-group">
+              <label class="terms-label">
+                <input
+                  type="checkbox"
+                  id="terms"
+                  name="terms"
+                  required
+                  aria-required="true"
+                />
+                <span class="checkbox-custom"></span>
+                <span class="terms-text"
+                  >I agree to the
+                  <a
+                    href="#"
+                    style="
+                      color: var(--primary);
+                      text-decoration: none;
+                      font-weight: 600;
+                    "
+                    >Terms & Conditions</a
+                  >
+                  and
+                  <a
+                    href="#"
+                    style="
+                      color: var(--primary);
+                      text-decoration: none;
+                      font-weight: 600;
+                    "
+                    >Privacy Policy</a
+                  ></span
+                >
+              </label>
+              <span class="error-message" role="alert" id="termsError"></span>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary auth-submit"
+              id="registerBtn"
+            >
+              Sign Up
+            </button>
+            <div class="auth-or"><span>OR</span></div>
+            <div class="auth-social" aria-label="Social signup options">
+              <button
+                type="button"
+                aria-label="Sign up with Google"
+                onclick="window.location.href='http://localhost:3000/auth/google'"
+                style="grid-column: 1 / -1"
+              >
+                <i class="fab fa-google"></i> Sign up with Google
+              </button>
+            </div>
+            <p class="auth-foot">
+              Already have an account? <a href="login.html">Login</a>
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+    <script>
+      const registerForm = document.getElementById("registerForm");
+      const registerBtn = document.getElementById("registerBtn");
+
+      // Real-time validation
+      const inputs = registerForm.querySelectorAll(
+        'input[type="text"], input[type="email"], input[type="password"]'
+      );
+      inputs.forEach((input) => {
+        input.addEventListener("blur", validateField);
+        input.addEventListener("input", validateField);
+      });
+
+      function validateField(e) {
+        const input = e.target;
+        const errorSpan = input
+          .closest(".form-group")
+          ?.querySelector(".error-message");
+
+        if (!errorSpan) return;
+
+        let error = "";
+
+        if (input.name === "fullName") {
+          if (input.value.trim().length < 2) {
+            error = "Full name must be at least 2 characters";
+          }
+        } else if (input.name === "username") {
+          if (!/^[a-zA-Z0-9_]{3,20}$/.test(input.value)) {
+            error =
+              "Username must be 3-20 characters, alphanumeric and underscores only";
+          }
+        } else if (input.name === "email") {
+          if (!/^([^@\s]+)@([^@\s]+)\.[^@\s]+$/.test(input.value)) {
+            error = "Invalid email format";
+          }
+        } else if (input.name === "password") {
+          if (input.value.length < 8) {
+            error = "Password must be at least 8 characters";
+          }
+        } else if (input.name === "confirmPassword") {
+          const password = document.getElementById("regPassword").value;
+          if (input.value !== password) {
+            error = "Passwords do not match";
+          }
+        }
+
+        if (error) {
+          errorSpan.textContent = error;
+          input.setAttribute("aria-invalid", "true");
+        } else {
+          errorSpan.textContent = "";
+          input.removeAttribute("aria-invalid");
+        }
+
+        updateSubmitButton();
+      }
+
+      function updateSubmitButton() {
+        const fullName = document.getElementById("regName").value.trim();
+        const username = document.getElementById("regUsername").value.trim();
+        const email = document.getElementById("regEmail").value.trim();
+        const password = document.getElementById("regPassword").value;
+        const confirmPassword = document.getElementById("regConfirm").value;
+        const terms = document.getElementById("terms").checked;
+
+        const isValid =
+          fullName.length >= 2 &&
+          /^[a-zA-Z0-9_]{3,20}$/.test(username) &&
+          /^([^@\s]+)@([^@\s]+)\.[^@\s]+$/.test(email) &&
+          password.length >= 8 &&
+          password === confirmPassword &&
+          terms;
+
+        registerBtn.disabled = !isValid;
+      }
+
+      registerForm.addEventListener("input", updateSubmitButton);
+      document
+        .getElementById("terms")
+        .addEventListener("change", updateSubmitButton);
+
+      registerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        registerBtn.disabled = true;
+        registerBtn.textContent = "Creating account...";
+
+        const data = {
+          fullName: document.getElementById("regName").value.trim(),
+          username: document.getElementById("regUsername").value.trim(),
+          email: document.getElementById("regEmail").value.trim(),
+          password: document.getElementById("regPassword").value,
+          confirmPassword: document.getElementById("regConfirm").value,
+        };
+
+        try {
+          const response = await fetch(
+            "http://localhost:3000/api/auth/register",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+              body: JSON.stringify(data),
+            }
+          );
+
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.error || "Registration failed");
+          }
+
+          // Success - redirect to portal
+          console.log("Account created:", result.user);
+          window.location.href = "index.html";
+        } catch (error) {
+          console.error("Registration error:", error);
+          alert(`Registration failed: ${error.message}`);
+          registerBtn.disabled = false;
+          registerBtn.textContent = "Sign Up";
+        }
+      });
+
+      // Initial button state
+      updateSubmitButton();
+    </script>
+  </body>
+</html>
