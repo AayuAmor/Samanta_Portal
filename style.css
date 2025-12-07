@@ -431,3 +431,58 @@ nav {
 .icon-badge i {
   font-size: 16px;
 }
+
+/* Top note banner */
+.top-note {
+  max-width: 900px;
+  margin: 0 auto 20px;
+  background: linear-gradient(90deg, #8b0000, #b71c1c);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(183, 28, 28, 0.12);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-note img {
+  height: 28px;
+  width: auto;
+  border-radius: 3px;
+}
+
+.form-step {
+  display: none;
+  animation: slideIn 0.5s ease-out;
+}
+
+.form-step.active {
+  display: block;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
