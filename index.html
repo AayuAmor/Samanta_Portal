@@ -92,7 +92,7 @@
             </div>
             <h3>Report Incident</h3>
             <p>
-              Share your incident through our secure  
+              Share your incident through our secure
               platform/ सुरक्षित उजुरी
             </p>
           </div>
@@ -418,13 +418,11 @@
     </div>
     </div>
     <!-- Legal Assistant Page -->
-      <div id="legal-assistant" class="page">
-        <div class="container">
-          <h1 class="section-title">AI Legal Assistant</h1>
+    <div id="legal-assistant" class="page">
+      <div class="container">
+        <h1 class="section-title">AI Legal Assistant</h1>
 
-          <div
-            class="chatbot-container glass-card"
-            style="
+        <div class="chatbot-container glass-card" style="
               border-radius: 24px;
               overflow: hidden;
               max-width: 2000px;
@@ -432,77 +430,432 @@
               height: 90vh;
               display: flex;
               flex-direction: column;
-            "
-            role="region"
-            aria-label="Legal assistant chatbot"
-          >
-            <div
-              class="chat-header"
-              style="
+            " role="region" aria-label="Legal assistant chatbot">
+          <div class="chat-header" style="
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 gap: 1rem;
-              "
-            >
-              <div style="display: flex; align-items: center; gap: 0.75rem">
-                <img
-                  src="assets/chat_logo.png"
-                  alt="Samanta Support"
-                  style="
+              ">
+            <div style="display: flex; align-items: center; gap: 0.75rem">
+              <img src="assets/chat_logo.png" alt="Samanta Support" style="
                     width: 2.5rem;
                     height: 2.5rem;
                     border-radius: 50%;
                     object-fit: cover;
-                  "
-                />
-                <div>
-                  <h3 style="margin: 0">Samanta Support</h3>
-                  <p
-                    id="status"
-                    style="font-size: 0.85rem; color: #16a34a; margin: 0"
-                  >
-                    Online
-                  </p>
-                </div>
+                  " />
+              <div>
+                <h3 style="margin: 0">Samanta Support</h3>
+                <p id="status" style="font-size: 0.85rem; color: #16a34a; margin: 0">
+                  Online
+                </p>
               </div>
             </div>
-            <div
-              class="chat-messages"
-              id="chatMessages"
-              role="log"
-              aria-live="polite"
-              aria-atomic="false"
-            ></div>
-            <div class="chat-input-container">
-              <label for="chatInput" class="sr-only">Chat message</label>
-              <input
-                type="text"
-                class="chat-input"
-                id="chatInput"
-                placeholder="Type your question here..."
-                onkeypress="if(event.key==='Enter') sendMessage()"
-                aria-label="Type your legal question here"
-              />
-              <button
-                class="btn btn-primary"
-                onclick="sendMessage()"
-                aria-label="Send message"
-              >
-                <i class="fas fa-paper-plane" aria-hidden="true"></i>
-              </button>
-              <span
-                id="voiceStatus"
-                class="form-help"
-                aria-live="polite"
-                aria-atomic="true"
-              ></span>
-            </div>
+          </div>
+          <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-atomic="false"></div>
+          <div class="chat-input-container">
+            <label for="chatInput" class="sr-only">Chat message</label>
+            <input type="text" class="chat-input" id="chatInput" placeholder="Type your question here..."
+              onkeypress="if(event.key==='Enter') sendMessage()" aria-label="Type your legal question here" />
+            <button class="btn btn-primary" onclick="sendMessage()" aria-label="Send message">
+              <i class="fas fa-paper-plane" aria-hidden="true"></i>
+            </button>
+            <span id="voiceStatus" class="form-help" aria-live="polite" aria-atomic="true"></span>
           </div>
         </div>
       </div>
+    </div>
+    <!-- Rights & Legal Knowledge Page -->
+    <div id="rights" class="page">
+      <div class="container">
+        <h1 class="section-title">Know Your Rights</h1>
 
-      
+        <div class="search-bar">
+          <input type="text" placeholder="Search for rights, laws, or protections..." />
+          <i class="fas fa-search"></i>
+        </div>
+
+        <!-- Women's Rights -->
+        <section style="margin-top: 3rem">
+          <h2 style="color: var(--primary); margin-bottom: 1.5rem">
+            <i class="fas fa-female"></i> महिलाको अधिकार (Women's Rights)
+          </h2>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-1"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>Property Rights</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-1">
+              <p>
+                Women have equal rights to ancestral property. The Civil Code
+                2074 grants daughters equal inheritance rights as sons. Women
+                can own, buy, and sell property independently.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-2"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>Workplace Rights</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-2">
+              <p>
+                Equal pay for equal work, maternity leave (98 days paid),
+                protection from workplace harassment, and no discrimination in
+                hiring or promotion.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-3"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>Protection from Violence</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-3">
+              <p>
+                The Domestic Violence Act 2066 provides protection orders,
+                financial compensation, and criminal penalties for abusers.
+                Sexual harassment in public places can result in up to 1 year
+                imprisonment.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Men's Rights -->
+        <section style="margin-top: 3rem">
+          <h2 style="color: var(--primary); margin-bottom: 1.5rem">
+            <i class="fas fa-male"></i> पुरुषको अधिकार (Men's Rights)
+          </h2>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-4"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>Parental Rights</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-4">
+              <p>
+                Equal rights to child custody and visitation. Fathers can seek
+                custody if it's in the child's best interest.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-5"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>Protection from False Allegations</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-5">
+              <p>
+                Legal recourse available for false accusations. Right to fair
+                trial and presumption of innocence until proven guilty.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- LGBTQIA+ Rights -->
+        <section style="margin-top: 3rem">
+          <h2 style="color: var(--primary); margin-bottom: 1.5rem">
+            <i class="fas fa-rainbow"></i> LGBTQIA+ अधिकार
+          </h2>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-6"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>Right to Identity</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-6">
+              <p>
+                Nepal recognizes third gender. Citizens can obtain citizenship
+                certificates with their gender identity. Supreme Court ruling
+                (2007) affirmed LGBTQIA+ rights.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-7"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>Non-Discrimination</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-7">
+              <p>
+                Constitutional protection from discrimination based on sexual
+                orientation and gender identity. Equal access to public
+                services, employment, and education.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Harassment Laws -->
+        <section style="margin-top: 3rem">
+          <h2 style="color: var(--primary); margin-bottom: 1.5rem">
+            <i class="fas fa-gavel"></i> Harassment Laws & Penalties
+          </h2>
+          <div class="glass-card">
+            <h3>Sexual Harassment (Civil Code Section 219)</h3>
+            <ul style="margin: 1rem 0; line-height: 2">
+              <li>🔹 Imprisonment: Up to 2 years</li>
+              <li>🔹 Fine: Up to NPR 50,000</li>
+              <li>🔹 Workplace harassment: Additional employment action</li>
+            </ul>
+          </div>
+          <div class="glass-card" style="margin-top: 1rem">
+            <h3>Domestic Violence (DV Act 2066)</h3>
+            <ul style="margin: 1rem 0; line-height: 2">
+              <li>🔹 Protection orders within 24 hours</li>
+              <li>🔹 Imprisonment: 3 months to 3 years based on severity</li>
+              <li>🔹 Compensation to victim</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- NGO Dashboard -->
+    <div id="ngo-dashboard" class="page">
+      <div class="container">
+        <h1 class="section-title">NGO Dashboard</h1>
+        <div class="dashboard">
+          <aside class="sidebar">
+            <h3 style="margin-bottom: 1rem">Menu</h3>
+            <ul class="sidebar-menu">
+              <li class="active"><i class="fas fa-folder-open"></i> Cases</li>
+              <li><i class="fas fa-envelope"></i> Messages</li>
+              <li><i class="fas fa-chart-bar"></i> Reports</li>
+              <li><i class="fas fa-cog"></i> Settings</li>
+            </ul>
+          </aside>
+          <main>
+            <div style="
+                  display: flex;
+                  justify-content: space-between;
+                  margin-bottom: 2rem;
+                ">
+              <h2>Active Cases</h2>
+              <div>
+                <select style="
+                      padding: 0.5rem;
+                      border-radius: 8px;
+                      border: 2px solid var(--primary-lighter);
+                    ">
+                  <option>All Cases</option>
+                  <option>New</option>
+                  <option>Pending</option>
+                  <option>Resolved</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="case-card">
+              <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: start;
+                  ">
+                <div>
+                  <h3>Case #SC2024-0045</h3>
+                  <p style="color: var(--text-light); margin: 0.5rem 0">
+                    Workplace Harassment
+                  </p>
+                  <span class="badge badge-new">New</span>
+                  <span class="risk-level risk-medium" style="margin-left: 0.5rem">Medium Risk</span>
+                </div>
+                <div style="text-align: right">
+                  <p style="font-size: 0.9rem; color: var(--text-light)">
+                    2 hours ago
+                  </p>
+                </div>
+              </div>
+              <p style="margin: 1rem 0">
+                Female employee reporting verbal harassment by supervisor at
+                workplace in Kathmandu...
+              </p>
+              <div style="display: flex; gap: 1rem">
+                <button class="btn btn-primary">View Details</button>
+                <button class="btn btn-secondary">Contact Victim</button>
+              </div>
+            </div>
+
+            <div class="case-card">
+              <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: start;
+                  ">
+                <div>
+                  <h3>Case #SC2024-0043</h3>
+                  <p style="color: var(--text-light); margin: 0.5rem 0">
+                    Domestic Violence
+                  </p>
+                  <span class="badge badge-pending">Pending</span>
+                  <span class="risk-level risk-medium" style="margin-left: 0.5rem">Medium Risk</span>
+                </div>
+                <div style="text-align: right">
+                  <p style="font-size: 0.9rem; color: var(--text-light)">
+                    1 day ago
+                  </p>
+                </div>
+              </div>
+              <p style="margin: 1rem 0">
+                Anonymous report of ongoing domestic violence in Madhesh
+                province...
+              </p>
+              <div style="display: flex; gap: 1rem">
+                <button class="btn btn-primary">View Details</button>
+                <button class="btn btn-secondary">Update Status</button>
+              </div>
+            </div>
+
+            <div class="case-card">
+              <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: start;
+                  ">
+                <div>
+                  <h3>Case #SC2024-0041</h3>
+                  <p style="color: var(--text-light); margin: 0.5rem 0">
+                    Discrimination
+                  </p>
+                  <span class="badge badge-resolved">Resolved</span>
+                  <span class="risk-level risk-low" style="margin-left: 0.5rem">Low Risk</span>
+                </div>
+                <div style="text-align: right">
+                  <p style="font-size: 0.9rem; color: var(--text-light)">
+                    3 days ago
+                  </p>
+                </div>
+              </div>
+              <p style="margin: 1rem 0">
+                LGBTQIA+ individual facing discrimination in housing
+                application...
+              </p>
+              <div style="display: flex; gap: 1rem">
+                <button class="btn btn-secondary">View Details</button>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- Police Dashboard -->
+    <div id="police-dashboard" class="page">
+      <div class="container">
+        <h1 class="section-title">Police Dashboard - High Priority Cases</h1>
+        <div style="
+              background: white;
+              border-radius: 24px;
+              padding: 2rem;
+              margin: 2rem 0;
+            ">
+          <div style="
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 2rem;
+              ">
+            <h2>Escalated Cases</h2>
+            <div style="display: flex; gap: 1rem">
+              <select style="
+                    padding: 0.5rem 1rem;
+                    border-radius: 8px;
+                    border: 2px solid var(--primary-lighter);
+                  ">
+                <option>All Locations</option>
+                <option>Kathmandu</option>
+                <option>Madhesh</option>
+                <option>Lumbini</option>
+              </select>
+              <select style="
+                    padding: 0.5rem 1rem;
+                    border-radius: 8px;
+                    border: 2px solid var(--primary-lighter);
+                  ">
+                <option>All Severities</option>
+                <option>Critical</option>
+                <option>High</option>
+              </select>
+            </div>
+          </div>
+
+          <table style="width: 100%; border-collapse: collapse">
+            <thead>
+              <tr style="background: var(--primary-lighter); text-align: left">
+                <th style="padding: 1rem">Case ID</th>
+                <th style="padding: 1rem">Type</th>
+                <th style="padding: 1rem">Location</th>
+                <th style="padding: 1rem">Risk</th>
+                <th style="padding: 1rem">Status</th>
+                <th style="padding: 1rem">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--primary-lighter)">
+                <td style="padding: 1rem">#SC2024-0046</td>
+                <td style="padding: 1rem">Physical Assault</td>
+                <td style="padding: 1rem">Janakpur</td>
+                <td style="padding: 1rem">
+                  <span class="risk-level risk-high">High Risk</span>
+                </td>
+                <td style="padding: 1rem">
+                  <span class="badge badge-new">Immediate Response Needed</span>
+                </td>
+                <td style="padding: 1rem">
+                  <button class="btn btn-primary">Dispatch Team</button>
+                </td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--primary-lighter)">
+                <td style="padding: 1rem">#SC2024-0044</td>
+                <td style="padding: 1rem">Stalking</td>
+                <td style="padding: 1rem">Pokhara</td>
+                <td style="padding: 1rem">
+                  <span class="risk-level risk-high">High Risk</span>
+                </td>
+                <td style="padding: 1rem">
+                  <span class="badge badge-pending">In Review</span>
+                </td>
+                <td style="padding: 1rem">
+                  <button class="btn btn-secondary">View Details</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Map Section -->
+        <div class="glass-card" style="margin-top: 2rem">
+          <h2 style="margin-bottom: 1rem">Incident Hotspots Map</h2>
+          <div style="
+                background: #f0f0f0;
+                height: 400px;
+                border-radius: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              ">
+            <p style="color: var(--text-light)">
+              <i class="fas fa-map-marked-alt" style="font-size: 3rem; color: var(--primary)"></i><br />
+              Interactive map showing high-risk areas
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
   </main>
 </body>
