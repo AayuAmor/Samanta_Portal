@@ -16,7 +16,7 @@ module.exports = function setupGoogleStrategy(passportInstance, db) {
     );
     return;
   }
-   passportInstance.use(
+  passportInstance.use(
     new GoogleStrategy(
       {
         clientID,
@@ -52,11 +52,88 @@ module.exports = function setupGoogleStrategy(passportInstance, db) {
               ]);
               return done(null, existingUser);
             }
+            // Check if email already exists (registered via password)
+            db.get(
+              "SELECT id, username, email, fullName FROM users WHERE email = ?",
+              [email],
+              (err, emailUser) => {
+                if (err) {
+                  return done(err);
+                }
+
+                if (emailUser) {
+                  // Email exists, link Google account
+                  db.run(
+                    "UPDATE users SET provider = ?, providerId = ?, lastLogin = ? WHERE id = ?",
+                    [
+                      "google",
+                      googleId,
+                      new Date().toISOString(),
+                      emailUser.id,
+                    ],
+                    function (err) {
+                      if (err) {
+                        console.error("Error linking Google account:", err);
+                        return done(err);
+                      }
+                      db.get(
+                        "SELECT id, username, email, fullName FROM users WHERE id = ?",
+                        [emailUser.id],
+                        (err, updatedUser) => {
+                          if (err) return done(err);
+                          done(null, updatedUser);
+                        }
+                      );
+                    }
+                  );
+                } else {
+                  // Create new user from Google account
+                  const username =
+                    email.split("@")[0] +
+                    "_" +
+                    Math.random().toString(36).substr(2, 9);
+                  const newUser = {
+                    username,
+                    email,
+                    fullName: displayName,
+                    provider: "google",
+                    providerId: googleId,
+                    createdAt: new Date().toISOString(),
+                    lastLogin: new Date().toISOString(),
+                  };
+
+                  db.run(
+                    `INSERT INTO users (username, email, fullName, provider, providerId, createdAt, lastLogin)
+                     VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                    [
+                      newUser.username,
+                      newUser.email,
+                      newUser.fullName,
+                      newUser.provider,
+                      newUser.providerId,
+                      newUser.createdAt,
+                      newUser.lastLogin,
+                    ],
+                    function (err) {
+                      if (err) {
+                        console.error("Error creating new Google user:", err);
+                        return done(err);
+                      }
+                      const createdUser = {
+                        id: this.lastID,
+                        username: newUser.username,
+                        email: newUser.email,
+                        fullName: newUser.fullName,
+                      };
+                      done(null, createdUser);
+                    }
+                  );
+                }
+              }
+            );
           }
-          );
+        );
       }
     )
   );
-
-  
 };
