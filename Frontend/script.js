@@ -460,11 +460,39 @@ function showAnswer(topicId, idx) {
     removeTypingIndicator();
     let answerHtml = `<div class="message-title">📖 जवाफ</div><p style="white-space:pre-line">${item.answer}</p>`;
     if (item.legal && item.legal.trim()) {
-      answerHtml += `<div class="message-legal" style="margin-top:0.75rem;padding:0.65rem;border-radius:10px;background:linear-gradient(90deg,#ef4444,#fb923c);color:#fff;"><strong>⚠️ कानुनी परिणाम:</strong><div style="margin-top:4px;font-size:0.95em;">${item.legal}</div></div>`;
+      answerHtml += `<div class="message-legal" style="margin-top:0.75rem;padding:0.75rem 1rem;border-radius:12px;background:linear-gradient(135deg,#0056b3,#1e74d8);color:#fff;box-shadow:0 4px 12px rgba(0,86,179,0.25);"><strong>⚠️ कानुनी परिणाम:</strong><div style="margin-top:6px;font-size:0.95em;line-height:1.5;">${item.legal}</div></div>`;
     }
-    answerHtml += `<div style="margin-top:1rem;display:flex;gap:0.75rem;flex-wrap:wrap;"><button class="btn btn-primary" style="flex:1;min-width:140px;padding:8px 12px;font-size:0.9rem;" onclick="showPage('complaint')">🚔 Report to Police</button><button class="btn btn-primary" style="flex:1;min-width:140px;padding:8px 12px;font-size:0.9rem;" onclick="askQuestion('How to contact a lawyer?')">⚖️ Report to Lawyer</button></div>`;
+    answerHtml += `<div style="margin-top:1rem;display:flex;gap:0.75rem;flex-wrap:wrap;"><button class="btn btn-primary" style="flex:1;min-width:140px;padding:8px 12px;font-size:0.9rem;" onclick="redirectToPoliceReport()">🚔 Report to Police</button><button class="btn btn-primary" style="flex:1;min-width:140px;padding:8px 12px;font-size:0.9rem;" onclick="redirectToLawyerReport()">⚖️ Report to Lawyer</button></div>`;
     addMessage(answerHtml, "bot");
   }, 650);
+}
+
+function redirectToLawyerReport() {
+  showPage("complaint");
+  // Small delay to ensure page is loaded before setting target
+  setTimeout(() => {
+    // Trigger click on lawyer toggle button
+    const lawyerBtn = document.querySelector(
+      '.report-toggle-btn[data-target="lawyer"]'
+    );
+    if (lawyerBtn) {
+      lawyerBtn.click();
+    }
+  }, 100);
+}
+
+function redirectToPoliceReport() {
+  showPage("complaint");
+  // Small delay to ensure page is loaded before setting target
+  setTimeout(() => {
+    // Trigger click on police toggle button
+    const policeBtn = document.querySelector(
+      '.report-toggle-btn[data-target="police"]'
+    );
+    if (policeBtn) {
+      policeBtn.click();
+    }
+  }, 100);
 }
 
 function handleKeyword(text) {
