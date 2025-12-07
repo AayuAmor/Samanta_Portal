@@ -1,3 +1,19 @@
+// Handle authentication callback on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+  const authStatus = params.get('auth');
+  
+  if (authStatus === 'success') {
+    alert('Login successful! Redirecting to dashboard...');
+    // Redirect to your main page
+    window.location.href = 'index.html';
+  } else if (authStatus === 'error') {
+    alert('Login failed. Please try again.');
+    // Clear the URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+});
+
 // Page Navigation with Active State Highlighting
 function showPage(pageId) {
   document.querySelectorAll(".page").forEach((page) => {

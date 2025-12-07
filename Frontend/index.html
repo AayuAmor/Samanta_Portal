@@ -291,6 +291,25 @@
                 <span class="error-message" role="alert"></span>
               </div>
 
+              <!-- Gender -->
+              <div class="form-group">
+                <label for="gender" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-venus-mars" style="font-size:16px;"></i>
+                  </span>
+                  ६) लिङ्ग / Gender
+                  <span class="required" aria-label="required">*</span>
+                </label>
+                <select id="gender" name="gender" aria-required="true" required>
+                  <option value="">-- चयन गर्नुहोस् / Select --</option>
+                  <option value="male">पुरुष / Male</option>
+                  <option value="female">महिला / Female</option>
+                  <option value="other">अन्य / Other</option>
+                </select>
+                <span class="error-message" role="alert"></span>
+              </div>
+
               <!-- Location -->
               <div class="form-group">
                 <label for="location" style="display:flex; gap:8px; align-items:center;">
@@ -298,7 +317,7 @@
                     style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
                     <i class="fas fa-map-marker-alt" style="font-size:16px;"></i>
                   </span>
-                  ६) घटना भएको स्थान / Location of Incident
+                  ७) घटना भएको स्थान / Location of Incident
                   <span class="required" aria-label="required">*</span>
                 </label>
                 <input id="location" name="location" type="text" placeholder="स्थान लेख्नुहोस् / Enter location"
@@ -313,7 +332,7 @@
                     style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
                     <i class="fas fa-list" style="font-size:16px;"></i>
                   </span>
-                  ७) उजुरीको प्रकार / Type of Complaint
+                  ८) उजुरीको प्रकार / Type of Complaint
                   <span class="required" aria-label="required">*</span>
                 </label>
                 <select id="type" name="type" aria-required="true" required>
@@ -334,7 +353,7 @@
                     style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
                     <i class="fas fa-file-alt" style="font-size:16px;"></i>
                   </span>
-                  ८) घटनाको विस्तृत विवरण / Detailed Description of Incident
+                  ९) घटनाको विस्तृत विवरण / Detailed Description of Incident
                   <span class="required" aria-label="required">*</span>
                 </label>
                 <textarea id="description" name="description" placeholder="विवरण लेख्नुहोस् / Describe the incident..."
@@ -349,7 +368,7 @@
                     style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
                     <i class="fas fa-user-shield" style="font-size:16px;"></i>
                   </span>
-                  ९) अभियुक्तको विवरण (थाहा भएमा) / Details of Accused (if known)
+                  १०) अभियुक्तको विवरण (थाहा भएमा) / Details of Accused (if known)
                 </label>
                 <textarea id="accused" name="accused" placeholder="अभियुक्त सम्बन्धी विवरण लेख्नुहोस्"
                   style="min-height:80px;"></textarea>
@@ -363,7 +382,7 @@
                     style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
                     <i class="fas fa-folder" style="font-size:16px;"></i>
                   </span>
-                  १०) प्रमाण (फोटो/भिडियो/अडियो) / Evidence (optional)
+                  ११) प्रमाण (फोटो/भिडियो/अडियो) / Evidence (optional)
                 </label>
                 <input id="evidence" name="evidence" type="file" accept="image/*,video/*,audio/*" multiple />
                 <div class="form-help" style="font-size:12px; color:#4a6b8c; margin-top:6px;">If you have evidence,
