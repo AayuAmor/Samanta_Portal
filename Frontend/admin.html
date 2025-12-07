@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Samanta Portal - Admin Panel</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="./assets/Logo_samanta_WebApp-modified.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      /* Admin-only styling layered on top of the main theme */
+      :root {
+        --admin-bg: #f4f7fb;
+      }
+
+      body {
+        background: var(--admin-bg);
+      }
+
+      .admin-shell {
+        min-height: 100vh;
+        background: var(--admin-bg);
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .admin-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        background: #0b2c6f;
+        color: #fff;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .admin-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .admin-brand img {
+        width: 42px;
+        height: 42px;
+        border-radius: 8px;
+        object-fit: cover;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .admin-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .admin-menu li {
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .admin-menu button {
+        height: 44px;
+        border: none;
+        background: rgba(255, 255, 255, 0.08);
+        color: #e7eefe;
+        padding: 0 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.1px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .admin-menu button i {
+        width: 18px;
+        text-align: center;
+      }
+
+      .admin-menu li.active button,
+      .admin-menu button:hover {
+        background: #123d94;
+        color: #fff;
+      }
+
+      .admin-content {
+        padding: 1.75rem 2rem 2.5rem;
+        background: var(--admin-bg);
+      }
+
+      .admin-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .admin-topbar h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: var(--text-primary, #0b2447);
+      }
+
+      .admin-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .admin-card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .admin-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 1.25rem;
+        box-shadow: 0 12px 30px rgba(9, 32, 77, 0.08);
+        border: 1px solid rgba(9, 32, 77, 0.08);
+      }
+
+      .admin-card h3 {
+        margin: 0 0 0.35rem;
+      }
+
+      .admin-card p {
+        margin: 0;
+        color: var(--text-light, #5d6a85);
+        font-size: 0.95rem;
+      }
+
+      .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 12px 30px rgba(9, 32, 77, 0.08);
+      }
+
+      .admin-table thead {
+        background: var(--primary-lighter, #e5eeff);
+        color: #0b2c6f;
+      }
+
+      .admin-table th,
+      .admin-table td {
+        padding: 0.9rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid rgba(9, 32, 77, 0.08);
+        font-size: 0.95rem;
+      }
+
+      .admin-table tbody tr:hover {
+        background: rgba(9, 32, 77, 0.03);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0.3rem 0.6rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .pill-green {
+        background: rgba(0, 168, 107, 0.15);
+        color: #009f77;
+      }
+
+      .pill-amber {
+        background: rgba(255, 193, 7, 0.15);
+        color: #b58900;
+      }
+
+      .pill-red {
+        background: rgba(220, 53, 69, 0.15);
+        color: #c12c3b;
+      }
+
+      .admin-empty {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        color: var(--text-light, #5d6a85);
+        box-shadow: 0 12px 30px rgba(9, 32, 77, 0.08);
+      }
+
+      .admin-search {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #fff;
+        border: 1px solid rgba(9, 32, 77, 0.08);
+        border-radius: 12px;
+        padding: 0.45rem 0.75rem;
+        min-width: 240px;
+      }
+
+      .admin-search input {
+        border: none;
+        outline: none;
+        width: 100%;
+        font-size: 0.95rem;
+      }
+
+      .btn-ghost {
+        border: 1px solid rgba(9, 32, 77, 0.15);
+        background: #fff;
+        color: #0b2c6f;
+        padding: 0.55rem 0.9rem;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .btn-ghost:hover {
+        background: rgba(9, 32, 77, 0.05);
+      }
+
+      .admin-actions .btn-primary,
+      .admin-actions .btn-secondary {
+        padding: 0.65rem 1rem;
+        border-radius: 10px;
+      }
+
+      .admin-table .btn-primary,
+      .admin-table .btn-secondary,
+      .admin-table .btn-ghost {
+        padding: 0.45rem 0.7rem;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 1024px) {
+        .admin-nav {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .admin-menu {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .admin-topbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .admin-actions {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .admin-search {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <div class="admin-nav">
+        <div class="admin-brand">
+          <img
+            src="./assets/Logo_samanta_WebApp-modified.png"
+            alt="Samanta Portal Logo"
+          />
+          <div>
+            <div style="font-weight: 700">Samanta Admin</div>
+            <div style="font-size: 0.9rem; opacity: 0.85">Control Center</div>
+          </div>
+        </div>
+        <ul class="admin-menu" id="adminMenu">
+          <li class="active">
+            <button data-section="home">
+              <i class="fas fa-house"></i>Home
+            </button>
+          </li>
+          <li>
+            <button data-section="users">
+              <i class="fas fa-users"></i>Users
+            </button>
+          </li>
+          <li>
+            <button data-section="reports">
+              <i class="fas fa-clipboard-list"></i>Reports
+            </button>
+          </li>
+          <li>
+            <button data-section="police">
+              <i class="fas fa-shield-halved"></i>Police Reports
+            </button>
+          </li>
+          <li>
+            <button data-section="lawyer">
+              <i class="fas fa-scale-unbalanced"></i>Lawyer Reports
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <main class="admin-content">
+        <div class="admin-topbar">
+          <h1 id="sectionTitle">Home</h1>
+          <div class="admin-actions">
+            <div class="admin-search">
+              <i
+                class="fas fa-search"
+                style="color: var(--text-light, #5d6a85)"
+              ></i>
+              <input id="searchInput" type="text" placeholder="Search..." />
+            </div>
+            <button class="btn-ghost" onclick="refreshData()">
+              <i class="fas fa-rotate"></i> Refresh
+            </button>
+            <button class="btn btn-primary" id="addBtn">
+              <i class="fas fa-plus"></i> Add
+            </button>
+          </div>
+        </div>
+
+        <div id="sectionContent"></div>
+      </main>
+    </div>
+
+    <script>
+      const dataStore = {
+        users: [
+          {
+            user_id: 1,
+            email: "aayush@example.com",
+            reports: ["#SC20251207-0001", "#SC20251207-0004"],
+          },
+          {
+            user_id: 2,
+            email: "prince@example.com",
+            reports: ["#SL20251207-0002"],
+          },
+          {
+            user_id: 3,
+            email: "ashok@example.com",
+            reports: ["#SC20251207-0003", "#SL20251207-0005"],
+          },
+          {
+            user_id: 4,
+            email: "neha@example.com",
+            reports: ["#SC20251207-0006"],
+          },
+        ],
+        reports: [
+          {
+            report_id: "#SC20251207-0001",
+            user_id: 1,
+            title: "Domestic Violence",
+            owner: "Police",
+            status: "pending",
+          },
+          {
+            report_id: "#SL20251207-0002",
+            user_id: 2,
+            title: "Workplace Harassment",
+            owner: "Lawyer",
+            status: "in-progress",
+          },
+          {
+            report_id: "#SC20251207-0003",
+            user_id: 3,
+            title: "Sexual Assault",
+            owner: "Police",
+            status: "resolved",
+          },
+          {
+            report_id: "#SC20251207-0004",
+            user_id: 1,
+            title: "Threat & Intimidation",
+            owner: "Police",
+            status: "pending",
+          },
+          {
+            report_id: "#SL20251207-0005",
+            user_id: 3,
+            title: "Property Rights Dispute",
+            owner: "Lawyer",
+            status: "in-progress",
+          },
+          {
+            report_id: "#SC20251207-0006",
+            user_id: 4,
+            title: "Cyberbullying",
+            owner: "Police",
+            status: "pending",
+          },
+        ],
+        police: [
+          {
+            report_id: "#SC20251207-0001",
+            user_id: 1,
+            complaint_type: "Domestic Violence",
+            status: "pending",
+          },
+          {
+            report_id: "#SC20251207-0003",
+            user_id: 3,
+            complaint_type: "Sexual Assault",
+            status: "resolved",
+          },
+          {
+            report_id: "#SC20251207-0004",
+            user_id: 1,
+            complaint_type: "Threat & Intimidation",
+            status: "pending",
+          },
+          {
+            report_id: "#SC20251207-0006",
+            user_id: 4,
+            complaint_type: "Cyberbullying",
+            status: "pending",
+          },
+        ],
+        lawyer: [
+          {
+            report_id: "#SL20251207-0002",
+            user_id: 2,
+            complaint_type: "Workplace Harassment",
+            status: "in-progress",
+          },
+          {
+            report_id: "#SL20251207-0005",
+            user_id: 3,
+            complaint_type: "Property Rights Dispute",
+            status: "in-progress",
+          },
+        ],
+      };
+
+      const sectionTitle = document.getElementById("sectionTitle");
+      const sectionContent = document.getElementById("sectionContent");
+      const searchInput = document.getElementById("searchInput");
+      const addBtn = document.getElementById("addBtn");
+      const menu = document.getElementById("adminMenu");
+
+      let activeSection = "home";
+
+      const pills = {
+        active:
+          '<span class="pill pill-green"><i class="fas fa-circle"></i>Active</span>',
+        inactive:
+          '<span class="pill pill-amber"><i class="fas fa-circle"></i>Inactive</span>',
+        pending:
+          '<span class="pill pill-amber"><i class="fas fa-clock"></i>Pending</span>',
+        "in-progress":
+          '<span class="pill pill-amber"><i class="fas fa-spinner"></i>In Progress</span>',
+        resolved:
+          '<span class="pill pill-green"><i class="fas fa-check"></i>Resolved</span>',
+        finished:
+          '<span class="pill pill-red"><i class="fas fa-bolt"></i>Finished (Closed)</span>',
+        assigned:
+          '<span class="pill pill-green"><i class="fas fa-user-check"></i>Assigned</span>',
+        review:
+          '<span class="pill pill-amber"><i class="fas fa-magnifying-glass"></i>Review</span>',
+        draft:
+          '<span class="pill pill-amber"><i class="fas fa-pen"></i>Draft</span>',
+      };
+
+      function renderHome() {
+        sectionTitle.textContent = "Home";
+        addBtn.style.display = "none";
+        sectionContent.innerHTML = `
+          <div class="admin-card-grid">
+            <div class="admin-card">
+              <h3>Total Users</h3>
+              <p>${dataStore.users.length} active members</p>
+            </div>
+            <div class="admin-card">
+              <h3>Open Reports</h3>
+              <p>${dataStore.reports.length} in queue</p>
+            </div>
+            <div class="admin-card">
+              <h3>Police Reports</h3>
+              <p>${dataStore.police.length} tracked</p>
+            </div>
+            <div class="admin-card">
+              <h3>Lawyer Reports</h3>
+              <p>${dataStore.lawyer.length} assigned</p>
+            </div>
+          </div>
+          <div class="admin-card">
+            <h3>Recent Activity</h3>
+            <p style="margin-top: 0.35rem; color: var(--text-light, #5d6a85);">All recent updates across reports and users appear here.</p>
+            <ul style="margin: 1rem 0 0; padding-left: 1rem; color: var(--text-light, #5d6a85); line-height: 1.6;">
+              <li>Police report #201 marked as finished</li>
+              <li>User "ashok@example.com" set to inactive</li>
+              <li>Lawyer "Meera KC" assigned to Property Rights case</li>
+            </ul>
+          </div>`;
+      }
+
+      function renderUsers(filter = "") {
+        sectionTitle.textContent = "Users";
+        addBtn.style.display = "inline-flex";
+        const rows = dataStore.users
+          .filter(
+            (u) =>
+              u.email.toLowerCase().includes(filter) ||
+              u.user_id.toString().includes(filter) ||
+              u.reports.some((r) => r.toLowerCase().includes(filter))
+          )
+          .map(
+            (u) => `
+            <tr>
+              <td>${u.user_id}</td>
+              <td>${u.email}</td>
+              <td>${u.reports.join(", ")}</td>
+              <td style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+                <button class="btn-secondary" onclick="editUser(${
+                  u.user_id
+                })"><i class="fas fa-pen"></i></button>
+                <button class="btn-ghost" onclick="removeUser(${
+                  u.user_id
+                })"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>`
+          )
+          .join("");
+
+        sectionContent.innerHTML = rows
+          ? `<table class="admin-table">
+              <thead>
+                <tr><th>User ID</th><th>Email</th><th>Their Reports</th><th>Actions</th></tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>`
+          : `<div class="admin-empty">No users found.</div>`;
+      }
+
+      function renderReports(filter = "") {
+        sectionTitle.textContent = "Reports";
+        addBtn.style.display = "inline-flex";
+        const rows = dataStore.reports
+          .filter(
+            (r) =>
+              r.title.toLowerCase().includes(filter) ||
+              r.owner.toLowerCase().includes(filter) ||
+              r.report_id.toLowerCase().includes(filter) ||
+              r.status.toLowerCase().includes(filter)
+          )
+          .map(
+            (r) => `
+            <tr>
+              <td>${r.report_id}</td>
+              <td>${r.user_id}</td>
+              <td>${r.title}</td>
+              <td>${r.owner}</td>
+              <td>${pills[r.status] || r.status}</td>
+              <td style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+                <button class="btn-secondary" onclick="editReport('${
+                  r.report_id
+                }')"><i class="fas fa-pen"></i></button>
+                <button class="btn-ghost" onclick="removeReport('${
+                  r.report_id
+                }')"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>`
+          )
+          .join("");
+
+        sectionContent.innerHTML = rows
+          ? `<table class="admin-table">
+              <thead>
+                <tr><th>Report ID</th><th>User ID</th><th>Title</th><th>Owner</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>`
+          : `<div class="admin-empty">No reports yet.</div>`;
+      }
+
+      function renderPolice(filter = "") {
+        sectionTitle.textContent = "Police Reports";
+        addBtn.style.display = "inline-flex";
+        const rows = dataStore.police
+          .filter(
+            (p) =>
+              p.report_id.toLowerCase().includes(filter) ||
+              p.complaint_type.toLowerCase().includes(filter) ||
+              p.status.toLowerCase().includes(filter)
+          )
+          .map(
+            (p) => `
+            <tr>
+              <td>${p.report_id}</td>
+              <td>${p.user_id}</td>
+              <td>${p.complaint_type}</td>
+              <td>${pills[p.status] || p.status}</td>
+              <td style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+                <button class="btn-secondary" onclick="editPolice('${
+                  p.report_id
+                }')"><i class="fas fa-pen"></i></button>
+                <button class="btn-ghost" onclick="removePolice('${
+                  p.report_id
+                }')"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>`
+          )
+          .join("");
+
+        sectionContent.innerHTML = rows
+          ? `<table class="admin-table">
+              <thead>
+                <tr><th>Report ID</th><th>User ID</th><th>Complaint Type</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>`
+          : `<div class="admin-empty">No police reports.</div>`;
+      }
+
+      function renderLawyer(filter = "") {
+        sectionTitle.textContent = "Lawyer Reports";
+        addBtn.style.display = "inline-flex";
+        const rows = dataStore.lawyer
+          .filter(
+            (l) =>
+              l.report_id.toLowerCase().includes(filter) ||
+              l.complaint_type.toLowerCase().includes(filter) ||
+              l.status.toLowerCase().includes(filter)
+          )
+          .map(
+            (l) => `
+            <tr>
+              <td>${l.report_id}</td>
+              <td>${l.user_id}</td>
+              <td>${l.complaint_type}</td>
+              <td>${pills[l.status] || l.status}</td>
+              <td style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+                <button class="btn-secondary" onclick="editLawyer('${
+                  l.report_id
+                }')"><i class="fas fa-pen"></i></button>
+                <button class="btn-ghost" onclick="removeLawyer('${
+                  l.report_id
+                }')"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>`
+          )
+          .join("");
+
+        sectionContent.innerHTML = rows
+          ? `<table class="admin-table">
+              <thead>
+                <tr><th>Report ID</th><th>User ID</th><th>Complaint Type</th><th>Status</th><th>Actions</th></tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>`
+          : `<div class="admin-empty">No lawyer reports.</div>`;
+      }
+
+      function setActive(section) {
+        activeSection = section;
+        document.querySelectorAll(".admin-menu li").forEach((li) => {
+          li.classList.toggle(
+            "active",
+            li.querySelector("button")?.dataset.section === section
+          );
+        });
+        searchInput.value = "";
+        refreshSection();
+      }
+
+      function refreshSection() {
+        const filter = searchInput.value.trim().toLowerCase();
+        addBtn.textContent = "Add";
+        addBtn.onclick = () => handleAdd();
+
+        switch (activeSection) {
+          case "home":
+            renderHome();
+            break;
+          case "users":
+            addBtn.textContent = "Add User";
+            renderUsers(filter);
+            break;
+          case "reports":
+            addBtn.textContent = "Add Report";
+            renderReports(filter);
+            break;
+          case "police":
+            addBtn.textContent = "Add Police Report";
+            renderPolice(filter);
+            break;
+          case "lawyer":
+            addBtn.textContent = "Add Lawyer Report";
+            renderLawyer(filter);
+            break;
+          default:
+            renderHome();
+        }
+      }
+
+      function handleAdd() {
+        if (activeSection === "users") {
+          const email = prompt("User email?");
+          if (!email) return;
+          const user_id =
+            Math.max(...dataStore.users.map((u) => u.user_id), 0) + 1;
+          dataStore.users.push({
+            user_id,
+            email,
+            reports: [],
+          });
+          refreshSection();
+          return;
+        }
+
+        if (activeSection === "reports") {
+          const title = prompt("Report title?");
+          if (!title) return;
+          const user_id = parseInt(prompt("User ID?", "1") || "1");
+          const owner = prompt("Owner (Police/Lawyer)?", "Police") || "Police";
+          const prefix = owner === "Lawyer" ? "SL" : "SC";
+          const date = new Date();
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, "0");
+          const day = String(date.getDate()).padStart(2, "0");
+          const random = String(Math.floor(Math.random() * 9999)).padStart(
+            4,
+            "0"
+          );
+          const report_id = `#${prefix}${year}${month}${day}-${random}`;
+
+          dataStore.reports.push({
+            report_id,
+            user_id,
+            title,
+            owner,
+            status: "pending",
+          });
+          refreshSection();
+          return;
+        }
+
+        if (activeSection === "police") {
+          const complaint_type = prompt("Complaint type?");
+          if (!complaint_type) return;
+          const user_id = parseInt(prompt("User ID?", "1") || "1");
+          const date = new Date();
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, "0");
+          const day = String(date.getDate()).padStart(2, "0");
+          const random = String(Math.floor(Math.random() * 9999)).padStart(
+            4,
+            "0"
+          );
+          const report_id = `#SC${year}${month}${day}-${random}`;
+
+          dataStore.police.push({
+            report_id,
+            user_id,
+            complaint_type,
+            status: "pending",
+          });
+          refreshSection();
+          return;
+        }
+
+        if (activeSection === "lawyer") {
+          const complaint_type = prompt("Complaint type?");
+          if (!complaint_type) return;
+          const user_id = parseInt(prompt("User ID?", "1") || "1");
+          const date = new Date();
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, "0");
+          const day = String(date.getDate()).padStart(2, "0");
+          const random = String(Math.floor(Math.random() * 9999)).padStart(
+            4,
+            "0"
+          );
+          const report_id = `#SL${year}${month}${day}-${random}`;
+
+          dataStore.lawyer.push({
+            report_id,
+            user_id,
+            complaint_type,
+            status: "pending",
+          });
+          refreshSection();
+          return;
+        }
+      }
+
+      // CRUD: Users
+      function editUser(user_id) {
+        const item = dataStore.users.find((u) => u.user_id === user_id);
+        if (!item) return;
+        const email = prompt("Update email", item.email) || item.email;
+        const reports =
+          prompt("Reports (comma-separated)", item.reports.join(", ")) ||
+          item.reports.join(", ");
+        Object.assign(item, {
+          email,
+          reports: reports.split(",").map((r) => r.trim()),
+        });
+        refreshSection();
+      }
+
+      function removeUser(user_id) {
+        if (confirm("Delete this user?")) {
+          dataStore.users = dataStore.users.filter(
+            (u) => u.user_id !== user_id
+          );
+          refreshSection();
+        }
+      }
+
+      // CRUD: Reports
+      function editReport(report_id) {
+        const item = dataStore.reports.find((r) => r.report_id === report_id);
+        if (!item) return;
+        const title = prompt("Update title", item.title) || item.title;
+        const owner =
+          prompt("Update owner (Police/Lawyer)", item.owner) || item.owner;
+        const status =
+          prompt("Status (pending/in-progress/resolved)", item.status) ||
+          item.status;
+        Object.assign(item, { title, owner, status });
+        refreshSection();
+      }
+
+      function removeReport(report_id) {
+        if (confirm("Delete this report?")) {
+          dataStore.reports = dataStore.reports.filter(
+            (r) => r.report_id !== report_id
+          );
+          refreshSection();
+        }
+      }
+
+      // CRUD: Police
+      function editPolice(report_id) {
+        const item = dataStore.police.find((p) => p.report_id === report_id);
+        if (!item) return;
+        const complaint_type =
+          prompt("Update complaint type", item.complaint_type) ||
+          item.complaint_type;
+        const status =
+          prompt("Status (pending/in-progress/resolved)", item.status) ||
+          item.status;
+        Object.assign(item, { complaint_type, status });
+        refreshSection();
+      }
+
+      function removePolice(report_id) {
+        if (confirm("Delete this police report?")) {
+          dataStore.police = dataStore.police.filter(
+            (p) => p.report_id !== report_id
+          );
+          refreshSection();
+        }
+      }
+
+      // CRUD: Lawyer
+      function editLawyer(report_id) {
+        const item = dataStore.lawyer.find((l) => l.report_id === report_id);
+        if (!item) return;
+        const complaint_type =
+          prompt("Update complaint type", item.complaint_type) ||
+          item.complaint_type;
+        const status =
+          prompt("Status (pending/in-progress/resolved)", item.status) ||
+          item.status;
+        Object.assign(item, { complaint_type, status });
+        refreshSection();
+      }
+
+      function removeLawyer(report_id) {
+        if (confirm("Delete this lawyer report?")) {
+          dataStore.lawyer = dataStore.lawyer.filter(
+            (l) => l.report_id !== report_id
+          );
+          refreshSection();
+        }
+      }
+
+      function refreshData() {
+        refreshSection();
+      }
+
+      // Menu binding
+      menu.addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-section]");
+        if (!btn) return;
+        setActive(btn.dataset.section);
+      });
+
+      searchInput.addEventListener("input", () => {
+        refreshSection();
+      });
+
+      // Initial render
+      setActive("home");
+    </script>
+  </body>
+</html>

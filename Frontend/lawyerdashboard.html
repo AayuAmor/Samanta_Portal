@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ne">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>समानता पोर्टल — Lawyer Dashboard</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="./assets/Logo_samanta_WebApp-modified.png"
+    />
+
+    <!-- jsPDF for Download PDF (CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+      :root {
+        --navy: #0b4f86;
+        --primary: #0b5fb6;
+        --accent: #10b981;
+        --bg: #f6fbff;
+        --card: #fff;
+        --muted: #7b9dbf;
+        --radius: 8px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Noto Sans Devanagari", Arial;
+        background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+        color: #0b2a44;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      header.topbar {
+        background: var(--navy);
+        color: #fff;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      header.topbar img.logo {
+        width: 52px;
+        height: 52px;
+        object-fit: contain;
+        border-radius: 8px;
+        background: linear-gradient(180deg, #e8f6ff, #fff);
+        padding: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      header.topbar h1 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      header.topbar p {
+        margin: 0;
+        font-size: 12px;
+        opacity: 0.95;
+      }
+
+      .wrap {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 0 18px 40px;
+      }
+
+      .card {
+        background: var(--card);
+        border-radius: var(--radius);
+        padding: 16px;
+        border: 1px solid #dbeffb;
+        box-shadow: 0 6px 18px rgba(11, 95, 182, 0.04);
+      }
+
+      .title {
+        text-align: center;
+        color: var(--navy);
+        font-size: 22px;
+        font-weight: 800;
+        margin: 8px 0 14px;
+      }
+
+      .search-row {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .search-row input[type="text"] {
+        flex: 1;
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1px solid #d7eaff;
+        font-size: 15px;
+      }
+      .search-row button {
+        padding: 12px 18px;
+        background: #c81e1e;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      table.report-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+      }
+      table.report-table th,
+      table.report-table td {
+        border: 1px solid #cfe6ff;
+        padding: 10px 8px;
+        text-align: left;
+        font-size: 14px;
+      }
+      table.report-table th {
+        background: #f0f9ff;
+        font-weight: 700;
+        color: var(--navy);
+      }
+      table.report-table td a {
+        color: var(--primary);
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .controls {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-top: 12px;
+      }
+      .controls a.btn {
+        display: inline-block;
+        padding: 8px 14px;
+        background: var(--primary);
+        color: #fff;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .detail-title {
+        text-align: center;
+        margin: 18px 0 8px;
+        font-weight: 800;
+        color: var(--navy);
+        font-size: 20px;
+      }
+      .detail-grid {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+      }
+      .detail-grid td {
+        padding: 10px 12px;
+        border: 1px solid #e6f2ff;
+        vertical-align: top;
+        font-size: 15px;
+      }
+      .detail-grid td.label {
+        width: 240px;
+        background: #f4fbff;
+        font-weight: 700;
+        color: var(--navy);
+      }
+
+      .detail-actions {
+        text-align: center;
+        margin-top: 18px;
+      }
+      .detail-actions button {
+        padding: 10px 16px;
+        border-radius: 8px;
+        border: none;
+        background: var(--primary);
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      @media (max-width: 900px) {
+        .search-row {
+          flex-direction: column;
+        }
+        .search-row button {
+          width: 100%;
+        }
+        table.report-table th,
+        table.report-table td {
+          font-size: 13px;
+          padding: 8px;
+        }
+        .detail-grid td.label {
+          width: 140px;
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar" role="banner">
+      <!-- logo: using uploaded session path -->
+      <img
+        class="logo"
+        src="./assets/Logo_samanta_WebApp-modified.png"
+        alt="समानता पोर्टल लोगो"
+      />
+      <div>
+        <h1>समानता पोर्टल</h1>
+        <p>Lawyer Dashboard — वकिल ड्यासबोर्ड</p>
+      </div>
+    </header>
+
+    <div class="wrap">
+      <div class="card">
+        <div class="title">Lawyer Requests / वकिल अनुरोधहरू</div>
+
+        <div class="search-row">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search by Name or Darta Number (e.g., D-001)..."
+          />
+          <button id="searchBtn">Search</button>
+        </div>
+
+        <div style="overflow: auto">
+          <table
+            class="report-table"
+            id="reportsTable"
+            aria-describedby="tableCaption"
+          >
+            <caption id="tableCaption" style="display: none">
+              List of requests
+            </caption>
+            <thead>
+              <tr>
+                <th>SN</th>
+                <th>Complainant Name</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Date of Incident</th>
+                <th>Darta No.</th>
+                <th>Legal Issue</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="reportsBody">
+              <!-- injected by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="controls">
+          <a class="btn" id="downloadCsv">Download CSV</a>
+        </div>
+      </div>
+
+      <!-- detail panel -->
+      <div class="card" id="detailCard" style="display: none; margin-top: 18px">
+        <div class="detail-title">Request Details / अनुरोध विवरण</div>
+
+        <table class="detail-grid" id="detailGrid">
+          <!-- filled by JS -->
+        </table>
+
+        <div class="detail-actions">
+          <button id="downloadPdf">Download PDF</button>
+          <a
+            id="backToList"
+            href="#"
+            style="
+              margin-left: 14px;
+              color: var(--primary);
+              font-weight: 700;
+              text-decoration: underline;
+            "
+            >Back to List</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (() => {
+        // Sample lawyer-request data
+        const requests = [
+          {
+            darta: "D-101",
+            complainantName: "Maya Thapa",
+            address: "Lalitpur-3",
+            contact: "9860123456",
+            email: "maya.thapa@example.com",
+            incidentDate: "2025-10-25",
+            description:
+              "Domestic violence across months; needs legal assistance and protection order.",
+            legalIssue: "घरेलु हिंसा / Domestic violence",
+            accused: "Husband (name withheld)",
+            evidence: "photo_domestic.jpg",
+            status: "Open",
+            submittedAt: "2025-10-26",
+          },
+          {
+            darta: "D-102",
+            complainantName: "Rita KC",
+            address: "Janakpur-8",
+            contact: "9802233445",
+            email: "",
+            incidentDate: "2025-11-02",
+            description:
+              "Sexual harassment by employer; seeks counsel for filing complaint and compensation.",
+            legalIssue: "यौन दुव्र्यवहार / Sexual harassment",
+            accused: "Employer (company name)",
+            evidence: "chat_screenshots.zip",
+            status: "Assigned",
+            submittedAt: "2025-11-03",
+          },
+          {
+            darta: "D-103",
+            complainantName: "Hari Bhandari",
+            address: "Birgunj-4",
+            contact: "9845123456",
+            email: "hari.b@example.com",
+            incidentDate: "2025-11-08",
+            description:
+              "Threats and extortion via phone; needs legal notice and police follow-up.",
+            legalIssue: "धम्की / Threat & extortion",
+            accused: "Unknown caller",
+            evidence: "voice_note_01.mp3",
+            status: "Investigating",
+            submittedAt: "2025-11-08",
+          },
+        ];
+
+        // DOM refs
+        const reportsBody = document.getElementById("reportsBody");
+        const detailCard = document.getElementById("detailCard");
+        const detailGrid = document.getElementById("detailGrid");
+        const searchInput = document.getElementById("searchInput");
+        const searchBtn = document.getElementById("searchBtn");
+        const downloadCsvBtn = document.getElementById("downloadCsv");
+        const backToList = document.getElementById("backToList");
+
+        function escapeHtml(str) {
+          return String(str || "").replace(
+            /[&<>"]/g,
+            (c) =>
+              ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])
+          );
+        }
+
+        function renderTable(list = requests) {
+          reportsBody.innerHTML = "";
+          list.forEach((r, idx) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+        <td>${idx + 1}</td>
+        <td>${escapeHtml(r.complainantName)}</td>
+        <td>${escapeHtml(r.contact)}</td>
+        <td>${escapeHtml(r.email || "—")}</td>
+        <td>${escapeHtml(r.address)}</td>
+        <td>${escapeHtml(r.incidentDate)}</td>
+        <td><a class="darta-link" data-darta="${escapeHtml(
+          r.darta
+        )}">${escapeHtml(r.darta)}</a></td>
+        <td>${escapeHtml(r.legalIssue)}</td>
+        <td><a class="view-link" data-darta="${escapeHtml(
+          r.darta
+        )}">View</a></td>
+      `;
+            reportsBody.appendChild(tr);
+          });
+
+          document.querySelectorAll(".view-link, .darta-link").forEach((a) => {
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              const id = e.currentTarget.dataset.darta;
+              openDetailByDarta(id);
+            });
+          });
+        }
+
+        function openDetailByDarta(darta) {
+          const rec = requests.find((x) => x.darta === darta);
+          if (!rec) {
+            alert("Record not found for Darta: " + darta);
+            return;
+          }
+          showDetail(rec);
+        }
+
+        function showDetail(rec) {
+          detailGrid.innerHTML = `
+      <tr><td class="label">Complainant Name</td><td>${escapeHtml(
+        rec.complainantName
+      )}</td></tr>
+      <tr><td class="label">Permanent Address</td><td>${escapeHtml(
+        rec.address
+      )}</td></tr>
+      <tr><td class="label">Contact Number</td><td>${escapeHtml(
+        rec.contact
+      )}</td></tr>
+      <tr><td class="label">Email</td><td>${escapeHtml(
+        rec.email || "—"
+      )}</td></tr>
+      <tr><td class="label">Date of Incident</td><td>${escapeHtml(
+        rec.incidentDate
+      )}</td></tr>
+      <tr><td class="label">Description of Issue</td><td>${escapeHtml(
+        rec.description
+      )}</td></tr>
+      <tr><td class="label">Legal Issue Type</td><td>${escapeHtml(
+        rec.legalIssue
+      )}</td></tr>
+      <tr><td class="label">Details of Accused</td><td>${escapeHtml(
+        rec.accused || "—"
+      )}</td></tr>
+      <tr><td class="label">Evidence</td><td>${escapeHtml(
+        rec.evidence || "—"
+      )}</td></tr>
+      <tr><td class="label">Darta Number</td><td>${escapeHtml(
+        rec.darta
+      )}</td></tr>
+      <tr><td class="label">Status</td><td>${escapeHtml(
+        rec.status || "—"
+      )}</td></tr>
+      <tr><td class="label">Submitted At</td><td>${escapeHtml(
+        rec.submittedAt || "—"
+      )}</td></tr>
+    `;
+          detailCard.style.display = "block";
+          window.scrollTo({
+            top: detailCard.offsetTop - 20,
+            behavior: "smooth",
+          });
+
+          document.getElementById("downloadPdf").onclick = () =>
+            downloadPdf(rec);
+        }
+
+        async function downloadPdf(rec) {
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF({ unit: "pt", format: "a4" });
+          const left = 40;
+          let y = 60;
+
+          // header
+          doc.setFontSize(18);
+          doc.setTextColor(10, 60, 110);
+          doc.text("समानता पोर्टल — Lawyer Request Detail", left, y);
+          y += 28;
+
+          doc.setFontSize(12);
+          doc.setTextColor(0, 0, 0);
+
+          const rows = [
+            ["Darta Number", rec.darta],
+            ["Complainant Name", rec.complainantName],
+            ["Permanent Address", rec.address],
+            ["Contact Number", rec.contact],
+            ["Email", rec.email || "—"],
+            ["Date of Incident", rec.incidentDate],
+            ["Description of Issue", rec.description],
+            ["Legal Issue Type", rec.legalIssue],
+            ["Details of Accused", rec.accused || "—"],
+            ["Evidence", rec.evidence || "—"],
+            ["Status", rec.status || "—"],
+            ["Submitted At", rec.submittedAt || "—"],
+          ];
+
+          const lineHeight = 18;
+          rows.forEach(([label, value]) => {
+            if (y > 720) {
+              doc.addPage();
+              y = 60;
+            }
+            doc.setFont(undefined, "bold");
+            doc.text(label + ":", left, y);
+            doc.setFont(undefined, "normal");
+            const split = doc.splitTextToSize(value, 450);
+            doc.text(split, left + 150, y);
+            y += lineHeight * split.length;
+            y += 8;
+          });
+
+          const fileName = `Samanta_LawyerRequest_${rec.darta.replace(
+            /\s+/g,
+            "_"
+          )}.pdf`;
+          doc.save(fileName);
+        }
+
+        function doSearch() {
+          const q = (searchInput.value || "").trim().toLowerCase();
+          if (!q) {
+            renderTable();
+            return;
+          }
+
+          const byDarta = requests.find((r) => r.darta.toLowerCase() === q);
+          if (byDarta) {
+            showDetail(byDarta);
+            return;
+          }
+
+          const filtered = requests.filter((r) => {
+            return (
+              (r.complainantName || "").toLowerCase().includes(q) ||
+              (r.darta || "").toLowerCase().includes(q) ||
+              (r.contact || "").includes(q)
+            );
+          });
+          renderTable(filtered);
+        }
+
+        function downloadCSV() {
+          const rows = [
+            [
+              "Darta Number",
+              "Complainant Name",
+              "Contact",
+              "Email",
+              "Address",
+              "Date of Incident",
+              "Legal Issue",
+              "Status",
+            ],
+          ];
+          requests.forEach((r) => {
+            rows.push([
+              r.darta,
+              r.complainantName,
+              r.contact,
+              r.email || "",
+              r.address,
+              r.incidentDate,
+              r.legalIssue,
+              r.status || "",
+            ]);
+          });
+          const csv = rows
+            .map((r) =>
+              r
+                .map((cell) => `"${String(cell || "").replace(/"/g, '""')}"`)
+                .join(",")
+            )
+            .join("\n");
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "Samanta_LawyerRequests.csv";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
+
+        // event bindings
+        document
+          .getElementById("searchBtn")
+          .addEventListener("click", doSearch);
+        searchInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            doSearch();
+          }
+        });
+        downloadCsvBtn.addEventListener("click", downloadCSV);
+        backToList.addEventListener("click", (e) => {
+          e.preventDefault();
+          detailCard.style.display = "none";
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        // initial render
+        renderTable();
+      })();
+    </script>
+  </body>
+</html>
