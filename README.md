@@ -365,11 +365,30 @@ Format: `#[PREFIX][YYYYMMDD]-[XXXX]`
 
 [Placeholder: Add screenshots]
 
-- Main complaint form with toggle
-- Police dashboard with stats
-- Lawyer dashboard with search
-- Admin control panel
-- LGBTQIA+ resources page
+## Main complaint form with toggle
+
+<img width="1847" height="888" alt="image" src="https://github.com/user-attachments/assets/8f4535a0-05d3-40ab-9754-7570730f3967" />
+<img width="1842" height="780" alt="image" src="https://github.com/user-attachments/assets/828c3b05-651d-4451-85a4-b0b99a78620e" />
+<img width="1853" height="732" alt="image" src="https://github.com/user-attachments/assets/6a2ff970-5d4b-4711-9de3-8f92a59e9ae2" />
+<img width="1851" height="596" alt="image" src="https://github.com/user-attachments/assets/c5464105-0d77-40d7-a438-68736d263bdd" />
+
+## Police dashboard with stats
+
+<img width="1858" height="716" alt="image" src="https://github.com/user-attachments/assets/e3e14f65-eb36-4799-97f3-47c9ab18991e" />
+
+## Lawyer dashboard with search
+
+<img width="1882" height="822" alt="image" src="https://github.com/user-attachments/assets/72949060-5492-4e01-8280-3fd6a3a18caf" />
+
+## Admin control panel
+
+<img width="1872" height="781" alt="image" src="https://github.com/user-attachments/assets/c4a024b4-c10c-4a7d-8dda-9ea0364ce261" />
+
+## LGBTQIA+ resources page
+
+<img width="1076" height="887" alt="image" src="https://github.com/user-attachments/assets/c5d8f96c-0e6f-4a3f-9e89-c13a2f07ccc4" />
+<img width="1001" height="740" alt="image" src="https://github.com/user-attachments/assets/02d77ff6-4de0-46ab-99fa-fc8dbc551bd0" />
+
 
 ---
 
