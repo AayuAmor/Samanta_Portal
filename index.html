@@ -1,14 +1,1199 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting to Samanta Portal...</title>
+<html lang="ne">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Samanta Portal - लैंगिक समानता हाम्रो अभियान</title>
+  <link rel="icon" type="image/png" href="assets/Logo_samanta_WebApp-modified.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="#home" onclick="showPage('home')" data-page="home" class="logo" aria-label="Samanta Portal Home">
+        <img src="assets/Logo_samanta_WebApp-modified.png" alt="Samanta Portal emblem" />
+        <span class="logo-text">Samanta Portal</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li>
+          <a href="#home" onclick="showPage('home')" data-page="home">Home</a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('complaint')" data-page="complaint">Report</a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('legal-assistant')" data-page="legal-assistant">Legal AI</a>
+        </li>
+        <li>
+          <a href="#rights" onclick="showPage('rights')" data-page="rights">Rights</a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('about')" data-page="about">About</a>
+        </li>
+        <li>
+          <a href="#" onclick="showPage('contact')" data-page="contact">Contact</a>
+        </li>
+      </ul>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home Page -->
+  <main role="main">
+    <div id="home" class="page active">
+      <section class="hero">
+        <div class="hero-content">
+          <h1>सशक्तिकरण र समानताको लागि</h1>
+          <p class="nepali-text">
+            लैंगिक समानता हाम्रो अभियान<br />विभेद रहित सुन्दर समाजको निर्माण
+          </p>
+          <div class="cta-buttons">
+            <button class="btn btn-primary" onclick="showPage('legal-assistant')">
+              <img src="assets/chat_logo.png" alt="Chat assistant logo" style="
+                    height: 52px;
+                    width: auto;
+                    object-fit: contain;
+                    margin-right: 0.35rem;
+                    vertical-align: middle;
+                  " />
+              Ask Legal Assistant
+            </button>
+            <button class="btn btn-secondary" onclick="showPage('complaint')">
+              <i class="fas fa-file-alt"></i> Report Complaint
+            </button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="assets/Logo_samanta_WebApp-modified.png" alt="Samanta Portal Logo - Symbol of equality and justice"
+            class="hero-illustration" />
+        </div>
+      </section>
+      <!-- How It Works -->
+      <section class="how-it-works">
+        <h2 class="section-title">के काम गर्छ</h2>
+        <div class="steps">
+          <div class="step glass-card">
+            <div class="step-icon">
+              <i class="fas fa-user-edit"></i>
+            </div>
+            <h3>Report Incident</h3>
+            <p>
+              Share your incident through our secure
+              platform/ सुरक्षित उजुरी
+            </p>
+          </div>
+          <div class="step glass-card">
+            <div class="step-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h3>AI Help</h3>
+            <p>
+              Our AI provides immediate legal guidance / हाम्रो AI ले तुरुन्तै कानुनी मार्गदर्शन प्रदान गर्दछ ।
+            </p>
+          </div>
+          <div class="step glass-card">
+            <div class="step-icon">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+            <h3>Get Support</h3>
+            <p>
+              Connect with Lawyer and police based on your choice/ तपाईंको रोजाइ अनुसार वकिल र प्रहरीसँग जोडिनुहोस् ।
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rights by Gender (Preview) -->
+      <section class="container" id="rights-preview" aria-labelledby="rights-preview-title">
+        <h2 class="section-title" id="rights-preview-title">
+          अधिकार र संरक्षण
+        </h2>
+        <div class="rights-grid">
+          <div class="glass-card right-card">
+            <h3><i class="fas fa-female"></i> महिलाको अधिकार</h3>
+            <p>
+              Equal rights in property, employment, education, and protection
+              from violence and discrimination
+            </p>
+            <button class="btn btn-primary" onclick="showPage('rights')" style="margin-top: 1rem">
+              Learn More
+            </button>
+          </div>
+          <div class="glass-card right-card">
+            <h3><i class="fas fa-male"></i> पुरुषको अधिकार</h3>
+            <p>
+              Equal access to support services, parental rights, and
+              protection from harassment
+            </p>
+            <button class="btn btn-primary" onclick="showPage('rights'); setTimeout(() => document.getElementById('men-rights-section').scrollIntoView({behavior: 'smooth', block: 'center'}), 100)" style="margin-top: 1rem">
+              Learn More
+            </button>
+          </div>
+          <div class="glass-card right-card">
+            <h3><i class="fas fa-rainbow"></i> LGBTQIA+ अधिकार</h3>
+            <p>
+              Right to identity, non-discrimination, and equal treatment under
+              the law
+            </p>
+            <button class="btn btn-primary" onclick="window.open('LGBTQIA.html', '_blank')" style="margin-top: 1rem">
+              Learn More
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- NGO Partners -->
+      <section class="container" style="text-align: center; margin-top: 5rem">
+        <h2 class="section-title">Our Partners</h2>
+        <div style="
+              display: flex;
+              justify-content: center;
+              gap: 3rem;
+              flex-wrap: wrap;
+              margin-top: 2rem;
+            ">
+          <a href="https://www.peopleinneed.net/" target="_blank" rel="noopener noreferrer" class="glass-card" style="padding: 2rem 3rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; transition: transform 0.3s ease;">
+            <img src="https://hamidajuvai.org.np/uploads/partners/1743761168.png" alt="People in Need Logo" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px;" />
+            <p style="margin-top: 1rem; font-weight: 600; text-align: center;">
+              People in Need
+            </p>
+          </a>
+          <a href="https://hamidajuvai.org.np/" target="_blank" rel="noopener noreferrer" class="glass-card" style="padding: 2rem 3rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; transition: transform 0.3s ease;">
+            <img src="https://hamidajuvai.org.np/img/logo.png" alt="Hami Daju Bhai Logo" style="width: 80px; height: 80px; object-fit: contain; border-radius: 8px;" />
+            <p style="margin-top: 1rem; font-weight: 600; text-align: center;">
+              Hami Daju Bhai
+            </p>
+          </a>
+          <a href="https://ddrcnepal.org/" target="_blank" rel="noopener noreferrer" class="glass-card" style="padding: 2rem 3rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; transition: opacity 0.6s, transform 0.6s; opacity: 1; transform: translateY(0px);">
+            <img src="https://ddrcnepal.org/assets/images/logo-two.png" alt="Divya Development Resource Centre Logo" style="width: 120px; height: auto; max-height: 70px; object-fit: contain; border-radius: 8px;" />
+            <p style="margin-top: 1rem; font-weight: 600; text-align: center; font-size: 0.9rem; line-height: 1.3; max-width: 120px;">
+              Divya Development Resource Centre
+            </p>
+          </a>
+        </div>
+      </section>
+    </div>
+    <!-- Complaint Registration Page -->
+    <div id="complaint" class="page">
+      <div class="container">
+        <!-- Top red note banner -->
+        <div class="top-note" role="region" aria-label="Important note"
+          style="background: linear-gradient(90deg,#8b0000,#b71c1c); color:#fff; padding:12px 16px; border-radius:8px; font-weight:700; box-shadow:0 4px 12px rgba(183,28,28,0.12); display:flex; align-items:center; gap:12px; margin-bottom:20px;">
+          <img src="assets/Logo_samanta_WebApp-modified.png" alt="Samanta Portal Logo"
+            style="height:28px; width:auto; border-radius:3px;" />
+          <div style="font-size:15px;">
+            नोट: उजुरीकर्ताको सम्पूर्ण विवरणहरू गोप्य राखिने छ । (Note: All complaint details will be kept
+            confidential.)
+          </div>
+        </div>
+
+        <div class="report-toggle" role="tablist" aria-label="Report destination selector">
+          <button type="button" class="report-toggle-btn active" data-target="police" role="tab"
+            aria-selected="true">🚔 Report to Police</button>
+          <button type="button" class="report-toggle-btn" data-target="lawyer" role="tab"
+            aria-selected="false">⚖️ Report to Lawyer</button>
+        </div>
+
+        <h1 class="section-title" id="reportFormTitle" data-police="उजुरी / Police Complaint Form — समानता पोर्टल"
+          data-lawyer="कानूनी सहयोग फारम / Lawyer Support Form — समानता पोर्टल" style="text-align:center;">
+          उजुरी / Police Complaint Form — समानता पोर्टल
+        </h1>
+        <p id="reportFormSubtitle" style="text-align:center; margin-bottom:2rem; color:#0b3b62; opacity:0.9;">
+          कृपया सत्यता साथ सबै आवश्यक विवरण भर्नुहोस्। तपाईंको जानकारी सुरक्षित राखिनेछ।
+        </p>
+
+        <div class="form-container glass-card">
+          <form id="complaintForm" novalidate data-target="police">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:14px;">
+
+              <!-- Full name -->
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="fullName" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-user" style="font-size:16px;"></i>
+                  </span>
+                  १) निवेदकको पूरा नाम / Full Name
+                  <span class="required" aria-label="required">*</span>
+                </label>
+                <input id="fullName" name="fullName" type="text" placeholder="पूरा नाम लेख्नुहोस् / Enter full name"
+                  aria-required="true" required />
+                <span class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Address -->
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="address" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-map-marker-alt" style="font-size:16px;"></i>
+                  </span>
+                  २) स्थायी ठेगाना / Permanent Address
+                  <span class="required" aria-label="required">*</span>
+                </label>
+                <input id="address" name="address" type="text" placeholder="ठेगाना लेख्नुहोस् / Enter address"
+                  aria-required="true" required />
+                <span class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Contact number -->
+              <div class="form-group">
+                <label for="phone" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-phone" style="font-size:16px;"></i>
+                  </span>
+                  ३) सम्पर्क नम्बर / Contact Number
+                  <span class="required" aria-label="required">*</span>
+                </label>
+                <input id="phone" name="phone" type="tel" placeholder="फोन नम्बर लेख्नुहोस् / Enter contact number"
+                  aria-required="true" required />
+                <div class="form-help" style="font-size:12px; color:#4a6b8c; margin-top:6px;">Use digits only (e.g.,
+                  98XXXXXXXX)</div>
+                <span class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Email optional -->
+              <div class="form-group">
+                <label for="email" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-envelope" style="font-size:16px;"></i>
+                  </span>
+                  ४) इमेल (ऐच्छिक) / Email (Optional)
+                </label>
+                <input id="email" name="email" type="text" placeholder="Email (optional) - ईमेल वैकल्पिक" />
+                <span class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Date -->
+              <div class="form-group">
+                <label for="incidentDate" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-calendar" style="font-size:16px;"></i>
+                  </span>
+                  ५) घटना भएको मिति / Date of Incident
+                  <span class="required" aria-label="required">*</span>
+                </label>
+                <input id="incidentDate" name="incidentDate" type="date" aria-required="true" required />
+                <label for="dateUnknown" class="checkbox-inline" style="margin-top: 0.5rem;"
+                  aria-describedby="dateUnknownHelp">
+                  <input type="checkbox" id="dateUnknown" name="dateUnknown" />
+                  <span class="checkbox-label">I don't remember the exact date</span>
+                </label>
+                <p id="dateUnknownHelp" class="form-help" style="margin-top: 0.25rem; font-size: 0.85rem; color: #666;">
+                  If you cannot recall the exact date due to trauma or distress, you can check this option.
+                </p>
+                <span class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Gender -->
+              <div class="form-group">
+                <label for="gender" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-venus-mars" style="font-size:16px;"></i>
+                  </span>
+                  ६) लिङ्ग / Gender
+                  <span class="required" aria-label="required">*</span>
+                </label>
+                <select id="gender" name="gender" aria-required="true" required>
+                  <option value="">-- चयन गर्नुहोस् / Select --</option>
+                  <option value="male">पुरुष / Male</option>
+                  <option value="female">महिला / Female</option>
+                  <option value="other">अन्य / Other</option>
+                </select>
+                <span class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Location -->
+              <div class="form-group">
+                <label for="location" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-map-marker-alt" style="font-size:16px;"></i>
+                  </span>
+                  ७) घटना भएको स्थान / Location of Incident
+                  <span class="required" aria-label="required">*</span>
+                </label>
+                <input id="location" name="location" type="text" placeholder="स्थान लेख्नुहोस् / Enter location"
+                  aria-required="true" required />
+                <span class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Complaint type -->
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="type" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-list" style="font-size:16px;"></i>
+                  </span>
+                  ८) उजुरीको प्रकार / Type of Complaint
+                  <span class="required" aria-label="required">*</span>
+                </label>
+                <select id="type" name="type" aria-required="true" required>
+                  <option value="">-- चयन गर्नुहोस् / Select --</option>
+                  <option value="assault">हातपात / Physical assault</option>
+                  <option value="threat">धम्की / Threat</option>
+                  <option value="sexual">यौन उत्पीडन / Sexual harassment</option>
+                  <option value="domestic">घरेलु हिंसा / Domestic violence</option>
+                  <option value="other">अन्य / Other</option>
+                </select>
+                <span class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Detailed description -->
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="description" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-file-alt" style="font-size:16px;"></i>
+                  </span>
+                  ९) घटनाको विस्तृत विवरण / Detailed Description of Incident
+                  <span class="required" aria-label="required">*</span>
+                </label>
+                <textarea id="description" name="description" placeholder="विवरण लेख्नुहोस् / Describe the incident..."
+                  aria-required="true" required style="min-height:120px;"></textarea>
+                <span class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Accused details -->
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="accused" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-user-shield" style="font-size:16px;"></i>
+                  </span>
+                  १०) अभियुक्तको विवरण (थाहा भएमा) / Details of Accused (if known)
+                </label>
+                <textarea id="accused" name="accused" placeholder="अभियुक्त सम्बन्धी विवरण लेख्नुहोस्"
+                  style="min-height:80px;"></textarea>
+                <span class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Evidence upload -->
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="evidence" style="display:flex; gap:8px; align-items:center;">
+                  <span class="icon-badge"
+                    style="width:36px; height:36px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; flex-shrink:0;">
+                    <i class="fas fa-folder" style="font-size:16px;"></i>
+                  </span>
+                  ११) प्रमाण (फोटो/भिडियो/अडियो) / Evidence (optional)
+                </label>
+                <input id="evidence" name="evidence" type="file" accept="image/*,video/*,audio/*" multiple />
+                <div class="form-help" style="font-size:12px; color:#4a6b8c; margin-top:6px;">If you have evidence,
+                  attach here (photo, short video, voice note).</div>
+                <span class="error-message" role="alert"></span>
+              </div>
+
+              <!-- Submit actions -->
+              <div class="form-group"
+                style="grid-column: 1 / -1; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+                <button class="btn btn-primary" id="submitBtn" type="submit">उजुरी पेश गर्नुहोस् / Submit
+                  Complaint</button>
+                <button class="btn btn-secondary" id="clearBtn" type="button">रद्द गर्नुहोस् / Clear</button>
+                <div style="margin-left:auto; font-size:13px; color:#4a6b8c;">Need urgent help? <strong
+                    style="color:var(--accent)">Call 100</strong></div>
+              </div>
+
+            </div>
+          </form>
+
+          <!-- Success Screen -->
+          <div class="form-step" id="successStep" style="display:none;">
+            <div class="success-screen">
+              <div class="success-icon">
+                <i class="fas fa-check"></i>
+              </div>
+              <h2 id="successTitle">उजुरी सफलतापूर्वक दर्ता भयो / Report Submitted Successfully</h2>
+              <p id="successSub">
+                Your complaint has been registered. We will review your case and connect you with appropriate support
+                within 24 hours.
+              </p>
+              <p id="successTarget" style="font-size: 0.95rem; color: var(--text-light); margin: 0.5rem 0 0.25rem;">
+                Filed to: <span id="successTargetValue">Police</span>
+              </p>
+              <p id="caseId" style="font-size: 0.95rem; color: var(--primary); font-weight: 600; margin: 0.5rem 0 1rem;">
+                Case ID: <span id="caseIdValue">#SC2025-00001</span>
+              </p>
+              <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="downloadPDF()"
+                  style="display: flex; align-items: center; gap: 0.5rem;">
+                  <i class="fas fa-download"></i> Download PDF
+                </button>
+                <button class="btn btn-secondary" onclick="showPage('home')">
+                  Return to Home
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </button>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- Legal Assistant Page -->
+    <div id="legal-assistant" class="page">
+      <div class="container">
+        <h1 class="section-title">AI Legal Assistant</h1>
+
+        <div class="chatbot-container glass-card" style="
+              border-radius: 24px;
+              overflow: hidden;
+              max-width: 2000px;
+              margin: 1rem auto;
+              height: 90vh;
+              display: flex;
+              flex-direction: column;
+            " role="region" aria-label="Legal assistant chatbot">
+          <div class="chat-header" style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+              ">
+            <div style="display: flex; align-items: center; gap: 0.75rem">
+              <img src="assets/chat_logo.png" alt="Samanta Support" style="
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    border-radius: 50%;
+                    object-fit: cover;
+                  " />
+              <div>
+                <h3 style="margin: 0">Samanta Support</h3>
+                <p id="status" style="font-size: 0.85rem; color: #16a34a; margin: 0">
+                  Online
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-atomic="false"></div>
+          <div class="chat-input-container">
+            <label for="chatInput" class="sr-only">Chat message</label>
+            <input type="text" class="chat-input" id="chatInput" placeholder="Type your question here..."
+              onkeypress="if(event.key==='Enter') sendMessage()" aria-label="Type your legal question here" />
+            <button class="btn btn-primary" onclick="sendMessage()" aria-label="Send message">
+              <i class="fas fa-paper-plane" aria-hidden="true"></i>
+            </button>
+            <span id="voiceStatus" class="form-help" aria-live="polite" aria-atomic="true"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Rights & Legal Knowledge Page -->
+    <div id="rights" class="page">
+      <div class="container">
+        <h1 class="section-title">Know Your Rights</h1>
+
+        <div class="search-bar">
+          <input type="text" placeholder="Search for rights, laws, or protections..." />
+          <i class="fas fa-search"></i>
+        </div>
+
+        <!-- Women's Rights -->
+        <section style="margin-top: 3rem">
+          <h2 style="color: var(--primary); margin-bottom: 1.5rem">
+            <i class="fas fa-female"></i> महिलाको अधिकार (Women's Rights)
+          </h2>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-1"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>१. सम्पत्ति अधिकार (Property Rights)</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-1">
+              <p>
+               महिलाले बाबुआमाको सम्पत्ति, पति/साझेदारको सम्पत्ति, तथा विवाहपछिको संयुक्त सम्पत्तिमा बराबर अधिकार पाउने सुनिश्चितता हो। यसअन्तर्गत महिलाले आफ्नै नाममा जग्गा–घर राख्न, खरिद–बिक्री गर्न, तथा कानुनी रूपमा आफ्नो हिस्सा दाबी गर्न पूर्ण स्वतन्त्रता हुन्छ।
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-2"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>२. कार्यस्थल अधिकार (Workplace Rights)</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-2">
+              <p>
+                महिलाहरूले कार्यस्थलमा समान अवसर, समान तलब, सुरक्षित वातावरण, र यौन दुव्र्यवहारविरुद्ध कानुनी सुरक्षा पाउने अधिकार हो। गर्भावस्थादेखि मातृत्वसम्मको अवकाश, करियर विकास, र भेदभावविरुद्ध संरक्षण पनि कार्यस्थल अधिकारमा पर्छ।
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-3"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>३. हिंसाबाट संरक्षण (Protection from Violence)</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-3">
+              <p>
+                शारीरिक, मानसिक, सामाजिक, आर्थिक वा डिजिटल कुनै पनि प्रकारको हिंसा वा दुर्व्यवहारबाट महिलालाई जोगाउने कानुनी तथा सामाजिक अधिकार हो। घरेलु हिंसा, बालविवाह, जबरजस्ती, मानव बेचबिखन, अनलाइन उत्पीडन लगायतका कुराबाट सुरक्षित रहन राज्य र समाज दुवै जिम्मेवार हुन्छन्।
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Men's Rights -->
+        <section id="men-rights-section" style="margin-top: 3rem">
+          <h2 style="color: var(--primary); margin-bottom: 1.5rem">
+            <i class="fas fa-male"></i> पुरुषको अधिकार (Men's Rights)
+          </h2>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-4"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>१. अभिभावकत्व अधिकार (Parental Rights)</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-4">
+              <p>
+                पुरुषहरूले आफ्ना छोराछोरीको हेरचाह, संरक्षण, निर्णय तथा कानुनी अभिभावकत्वमा समान अधिकार पाउने व्यवस्था हो। सम्बन्धविच्छेद वा विग्रह भए पनि बुवा–सन्तान सम्बन्ध सुरक्षित रहोस् भन्ने उद्देश्यले पालकत्वमा न्यायपूर्ण अवसर आवश्यक हुन्छ।
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item glass-card">
+            <div class="accordion-header" onclick="toggleAccordion(this)" role="button" tabindex="0"
+              aria-expanded="false" aria-controls="accordion-content-5"
+              onkeypress="if(event.key==='Enter' || event.key===' ') toggleAccordion(this)">
+              <span>२. झूटो आरोपबाट संरक्षण (Protection from False Allegations)</span>
+              <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </div>
+            <div class="accordion-content" id="accordion-content-5">
+              <p>
+                कुनै पनि आधारविहीन वा झूटा आरोप (जस्तै हिंसा, दुव्र्यवहार, आर्थिक शोषण आदि) बाट पुरुषलाई कानुनी रूपमा बचाउने अधिकार हो। प्रमाणको आधारमा न्यायिक छानबिन हुने, प्रतिवादीलाई आफ्नो पक्ष राख्ने मौका दिने र झूटा उजुरीमा उचित कार्यवाही गर्ने व्यवस्था यसअन्तर्गत पर्छ।
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- LGBTQIA+ Rights -->
+        <section style="margin-top: 3rem">
+          <h2 style="color: var(--primary); margin-bottom: 1.5rem">
+            <i class="fas fa-rainbow"></i> LGBTQIA+ अधिकार
+          </h2>
+          <div class="glass-card right-card">
+            <h3><i class="fas fa-rainbow"></i> LGBTQIA+ अधिकार</h3>
+            <p>
+              Right to identity, non-discrimination, and equal treatment under
+              the law. Access comprehensive information on legal rights, mental health support, and assistance organizations.
+            </p>
+            <button class="btn btn-primary" onclick="window.open('LGBTQIA.html', '_blank')" style="margin-top: 1rem">
+              Learn More
+            </button>
+          </div>
+        </section>
+
+        <!-- Harassment Laws -->
+        <section style="margin-top: 3rem">
+          <h2 style="color: var(--primary); margin-bottom: 1.5rem">
+            <i class="fas fa-gavel"></i> Harassment Laws & Penalties
+          </h2>
+          <div class="glass-card">
+            <h3>यौन दुव्र्यवहार सम्बन्धी कानुनी व्यवस्था (दीवानी संहिता दफा 219)</h3>
+            <ul style="margin: 1rem 0; line-height: 2">
+              <li>१) कैद सजाय (Imprisonment)
+यौन दुव्र्यवहार प्रमाणित भएमा २ वर्षसम्म कैद सजाय हुनसक्छ।
+यसले कार्यस्थल, सार्वजनिक स्थान, अनलाइन प्लेटफर्म वा कुनै पनि वातावरणमा गरिने यौनगत दुव्र्यवहारलाई नियन्त्रण गर्न महत्वपूर्ण भूमिका खेल्छ।
+</li>
+              <li>२) जरिवाना (Fine)
+दोषी ठहरिएको व्यक्तिलाई अधिकतम रु. ५०,००० सम्म जरिवाना तिर्नुपर्ने हुन्छ।
+यसले अपराध रोकथाममा आर्थिक जिम्मेवारी पनि जोडेर पीडितलाई न्याय उपलब्ध गराउने लक्ष्य राख्छ।
+</li>
+              <li>३) कार्यस्थलमा परेको असर (Workplace Harassment Consequences)
+यदि दुव्र्यवहार कार्यालय/कार्यस्थलमा भएको हो भने—<br/>
+🔹 नोकरीबाट निलम्बन,<br/>
+🔹 बरखास्त,<br/>
+🔹 अन्य प्रशासनिक कारबाही<br/>
+जस्ता थप सजायहरू लाग्न सक्छन्।
+यसले कार्यस्थलमा सुरक्षित, सम्मानजनक, र समान वातावरण सुनिश्चित गर्छ।
+</li>
+<li>४) पीडितको गोपनीयता (Victim Confidentiality)
+पीडितको नाम, पहिचान वा विवरण सार्वजनिक गर्न आधिकारिक अनुमति बिना पाइँदैन।
+यसले पीडितलाई मानसिक सुरक्षाको अनुभूति गराउँछ।
+</li>
+<li>५) उजुरी दर्ता प्रक्रिया (Filing Procedure)
+पीडितले—<br/>
+🔹 नजिकको प्रहरी कार्यालय,<br/>
+🔹 अदालत, वा<br/>
+🔹 महिला हिंसा सेल<br/>
+मार्फत प्रत्यक्ष उजुरी दिन सक्छन्।
+प्रहरीले उजुरी दर्ता नगरे कानुन अनुसार कारबाही हुनसक्छ।
+</li>
+            </ul>
+          </div>
+          <div class="glass-card" style="margin-top: 1rem">
+            <h3>घरेलु हिंसा सम्बन्धी कानुन (घरेलु हिंसा (कसूर तथा सजाय) ऐन, २०६६)</h3>
+            <ul style="margin: 1rem 0; line-height: 2">
+              <li>१) सुरक्षा आदेश (Protection Order within 24 hours)
+यदि पीडित तत्काल जोखिममा छ भने अदालतले २४ घण्टाभित्र सुरक्षा आदेश जारी गर्न सक्छ।
+यसले पीडितलाई हिंसा गर्ने व्यक्तिबाट टाढा रहने कानुनी सुरक्षा प्रदान गर्छ—
+जस्तै,<br/>
+🔹 घरबाट टाढा राख्ने आदेश<br/>
+🔹 सम्पर्क निषेध आदेश<br/>
+🔹 नजिक नजान चेतावनी<br/>
+</li>
+              <li>२) कैद सजाय (Imprisonment)
+घरेलु हिंसामा दोषी ठहरिए अनुसार—<br/>
+🔹 ३ महिना देखि ३ वर्षसम्म कैद सजाय हुन सक्छ।<br/>
+हिंसा गम्भीर भए थप सजाय पनि हुनसक्छ।
+</li>
+              <li>३) क्षतिपूर्ति (Compensation)
+अदालतले पीडितलाई—<br/>
+🔹 मानसिक दुःख,<br/>
+🔹 शारीरिक चोट–पटक,<br/>
+🔹 आर्थिक क्षति<br/>
+इत्यादिका आधारमा क्षतिपूर्ति प्रदान गर्न आदेश दिन सक्छ।
+</li>
+<li>४) मनोवैज्ञानिक तथा स्वास्थ्य सेवा (Counseling & Medical Support)
+कानुनअनुसार पीडितलाई—<br/>
+🔹 निःशुल्क उपचार,<br/>
+🔹 मनो–परामर्श,<br/>
+🔹 सुरक्षित आवास<br/>
+जस्ता सुविधा उपलब्ध गराउन सकिन्छ।<br/>
+५) प्रहरीको कर्तव्य (Police Duty)<br/>
+प्रहरीले उजुरी परेपछि—<br/>
+🔹 तुरुन्तै मुद्दा दर्ता गर्ने,<br/>
+🔹 पीडितलाई सुरक्षित स्थानमा लैजान सहयोग गर्ने,<br/>
+🔹 चिकित्सा रिपोर्टमा सहयोग गर्ने<br/>
+जस्ता कानुनी दायित्व पूरा गर्नै पर्छ।<br/>
+६) मेलमिलाप (Reconciliation)<br/>
+घरेलु हिंसा मुद्दामा मेलमिलाप गर्न सकिए पनि—<br/>
+🔸 पीडितको स्वेच्छा अनिवार्य<br/>
+🔸 अदालत वा स्थानीय तहको निगरानी आवश्यक<br/>
+कानुनले जबरजस्ती मेलमिलाप गर्न दिन्न।
+</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- NGO Dashboard -->
+    <div id="ngo-dashboard" class="page">
+      <div class="container">
+        <h1 class="section-title">NGO Dashboard</h1>
+        <div class="dashboard">
+          <aside class="sidebar">
+            <h3 style="margin-bottom: 1rem">Menu</h3>
+            <ul class="sidebar-menu">
+              <li class="active"><i class="fas fa-folder-open"></i> Cases</li>
+              <li><i class="fas fa-envelope"></i> Messages</li>
+              <li><i class="fas fa-chart-bar"></i> Reports</li>
+              <li><i class="fas fa-cog"></i> Settings</li>
+            </ul>
+          </aside>
+          <main>
+            <div style="
+                  display: flex;
+                  justify-content: space-between;
+                  margin-bottom: 2rem;
+                ">
+              <h2>Active Cases</h2>
+              <div>
+                <select style="
+                      padding: 0.5rem;
+                      border-radius: 8px;
+                      border: 2px solid var(--primary-lighter);
+                    ">
+                  <option>All Cases</option>
+                  <option>New</option>
+                  <option>Pending</option>
+                  <option>Resolved</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="case-card">
+              <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: start;
+                  ">
+                <div>
+                  <h3>Case #SC2024-0045</h3>
+                  <p style="color: var(--text-light); margin: 0.5rem 0">
+                    Workplace Harassment
+                  </p>
+                  <span class="badge badge-new">New</span>
+                  <span class="risk-level risk-medium" style="margin-left: 0.5rem">Medium Risk</span>
+                </div>
+                <div style="text-align: right">
+                  <p style="font-size: 0.9rem; color: var(--text-light)">
+                    2 hours ago
+                  </p>
+                </div>
+              </div>
+              <p style="margin: 1rem 0">
+                Female employee reporting verbal harassment by supervisor at
+                workplace in Kathmandu...
+              </p>
+              <div style="display: flex; gap: 1rem">
+                <button class="btn btn-primary">View Details</button>
+                <button class="btn btn-secondary">Contact Victim</button>
+              </div>
+            </div>
+
+            <div class="case-card">
+              <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: start;
+                  ">
+                <div>
+                  <h3>Case #SC2024-0043</h3>
+                  <p style="color: var(--text-light); margin: 0.5rem 0">
+                    Domestic Violence
+                  </p>
+                  <span class="badge badge-pending">Pending</span>
+                  <span class="risk-level risk-medium" style="margin-left: 0.5rem">Medium Risk</span>
+                </div>
+                <div style="text-align: right">
+                  <p style="font-size: 0.9rem; color: var(--text-light)">
+                    1 day ago
+                  </p>
+                </div>
+              </div>
+              <p style="margin: 1rem 0">
+                Anonymous report of ongoing domestic violence in Madhesh
+                province...
+              </p>
+              <div style="display: flex; gap: 1rem">
+                <button class="btn btn-primary">View Details</button>
+                <button class="btn btn-secondary">Update Status</button>
+              </div>
+            </div>
+
+            <div class="case-card">
+              <div style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: start;
+                  ">
+                <div>
+                  <h3>Case #SC2024-0041</h3>
+                  <p style="color: var(--text-light); margin: 0.5rem 0">
+                    Discrimination
+                  </p>
+                  <span class="badge badge-resolved">Resolved</span>
+                  <span class="risk-level risk-low" style="margin-left: 0.5rem">Low Risk</span>
+                </div>
+                <div style="text-align: right">
+                  <p style="font-size: 0.9rem; color: var(--text-light)">
+                    3 days ago
+                  </p>
+                </div>
+              </div>
+              <p style="margin: 1rem 0">
+                LGBTQIA+ individual facing discrimination in housing
+                application...
+              </p>
+              <div style="display: flex; gap: 1rem">
+                <button class="btn btn-secondary">View Details</button>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- Police Dashboard -->
+    <div id="police-dashboard" class="page">
+      <div class="container">
+        <h1 class="section-title">Police Dashboard - High Priority Cases</h1>
+        <div style="
+              background: white;
+              border-radius: 24px;
+              padding: 2rem;
+              margin: 2rem 0;
+            ">
+          <div style="
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 2rem;
+              ">
+            <h2>Escalated Cases</h2>
+            <div style="display: flex; gap: 1rem">
+              <select style="
+                    padding: 0.5rem 1rem;
+                    border-radius: 8px;
+                    border: 2px solid var(--primary-lighter);
+                  ">
+                <option>All Locations</option>
+                <option>Kathmandu</option>
+                <option>Madhesh</option>
+                <option>Lumbini</option>
+              </select>
+              <select style="
+                    padding: 0.5rem 1rem;
+                    border-radius: 8px;
+                    border: 2px solid var(--primary-lighter);
+                  ">
+                <option>All Severities</option>
+                <option>Critical</option>
+                <option>High</option>
+              </select>
+            </div>
+          </div>
+
+          <table style="width: 100%; border-collapse: collapse">
+            <thead>
+              <tr style="background: var(--primary-lighter); text-align: left">
+                <th style="padding: 1rem">Case ID</th>
+                <th style="padding: 1rem">Type</th>
+                <th style="padding: 1rem">Location</th>
+                <th style="padding: 1rem">Risk</th>
+                <th style="padding: 1rem">Status</th>
+                <th style="padding: 1rem">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--primary-lighter)">
+                <td style="padding: 1rem">#SC2024-0046</td>
+                <td style="padding: 1rem">Physical Assault</td>
+                <td style="padding: 1rem">Janakpur</td>
+                <td style="padding: 1rem">
+                  <span class="risk-level risk-high">High Risk</span>
+                </td>
+                <td style="padding: 1rem">
+                  <span class="badge badge-new">Immediate Response Needed</span>
+                </td>
+                <td style="padding: 1rem">
+                  <button class="btn btn-primary">Dispatch Team</button>
+                </td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--primary-lighter)">
+                <td style="padding: 1rem">#SC2024-0044</td>
+                <td style="padding: 1rem">Stalking</td>
+                <td style="padding: 1rem">Pokhara</td>
+                <td style="padding: 1rem">
+                  <span class="risk-level risk-high">High Risk</span>
+                </td>
+                <td style="padding: 1rem">
+                  <span class="badge badge-pending">In Review</span>
+                </td>
+                <td style="padding: 1rem">
+                  <button class="btn btn-secondary">View Details</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Map Section -->
+        <div class="glass-card" style="margin-top: 2rem">
+          <h2 style="margin-bottom: 1rem">Incident Hotspots Map</h2>
+          <div style="
+                background: #f0f0f0;
+                height: 400px;
+                border-radius: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              ">
+            <p style="color: var(--text-light)">
+              <i class="fas fa-map-marked-alt" style="font-size: 3rem; color: var(--primary)"></i><br />
+              Interactive map showing high-risk areas
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- About Page -->
+      <div id="about" class="page">
+        <div class="container">
+          <h1 class="section-title">About Samanta Portal</h1>
+
+          <div class="glass-card" style="margin: 2rem 0">
+            <h2 style="color: var(--primary); margin-bottom: 1rem">
+              Our Mission
+            </h2>
+            <p style="font-size: 1.1rem; line-height: 1.8">
+              Samanta Portal is dedicated to creating a safer, more equitable
+              Nepal by providing accessible platforms for reporting harassment,
+              understanding legal rights, and connecting victims with immediate
+              support. We believe everyone deserves to live free from
+              discrimination and violence.
+            </p>
+          </div>
+
+          <div class="glass-card" style="margin: 2rem 0">
+            <h2 style="color: var(--primary); margin-bottom: 1rem">
+              Our Vision
+            </h2>
+            <p style="font-size: 1.1rem; line-height: 1.8">
+              A Nepal where gender equality is not just a goal but a lived
+              reality, where every individual can exercise their rights without
+              fear, and where technology empowers communities to stand against
+              injustice.
+            </p>
+          </div>
+
+          <div class="glass-card" style="margin: 2rem 0">
+            <h2 style="color: var(--primary); margin-bottom: 1rem">
+              Problems We Address
+            </h2>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                margin-top: 1.5rem;
+              "
+            >
+              <div>
+                <h4>
+                  <i
+                    class="fas fa-exclamation-triangle"
+                    style="color: var(--primary)"
+                  ></i>
+                  Underreporting
+                </h4>
+                <p>
+                  Many victims don't report due to fear, stigma, or lack of
+                  access
+                </p>
+              </div>
+              <div>
+                <h4>
+                  <i
+                    class="fas fa-question-circle"
+                    style="color: var(--primary)"
+                  ></i>
+                  Lack of Awareness
+                </h4>
+                <p>Limited knowledge about legal rights and protections</p>
+              </div>
+              <div>
+                <h4>
+                  <i class="fas fa-clock" style="color: var(--primary)"></i>
+                  Delayed Response
+                </h4>
+                <p>Slow response times can escalate dangerous situations</p>
+              </div>
+              <div>
+                <h4>
+                  <i
+                    class="fas fa-hands-helping"
+                    style="color: var(--primary)"
+                  ></i>
+                  Fragmented Support
+                </h4>
+                <p>
+                  Disconnected services make it hard to get comprehensive help
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h2 class="section-title" style="margin-top: 4rem">Our Team</h2>
+          <div class="team-grid">
+            <div class="team-card glass-card">
+              <div class="team-avatar" style="border: 3px solid #fff; overflow: hidden; margin-bottom: 1rem;">
+                <img src="assets/Aayush.png" alt="Aayush Kumar Raut" style="width: 100%; height: 100%; object-fit: cover;" />
+              </div>
+              <h3 style="margin-bottom: 0.5rem;">Aayush Kumar Raut</h3>
+              <p style="font-size: 0.95rem; font-weight: 500;">Web Developer</p>
+            </div>
+            <div class="team-card glass-card">
+              <div class="team-avatar" style="border: 3px solid #fff; overflow: hidden; margin-bottom: 1rem;">
+                <img src="assets/Prince.jpg" alt="Prince Kumar Raut" style="width: 100%; height: 100%; object-fit: cover;" />
+              </div>
+              <h3 style="margin-bottom: 0.5rem;">Prince Kumar Raut</h3>
+              <p style="font-size: 0.95rem; font-weight: 500;">Frontend & Backend<br/>Developer</p>
+            </div>
+            <div class="team-card glass-card">
+              <div class="team-avatar" style="border: 3px solid #fff; overflow: hidden; margin-bottom: 1rem;">
+                <img src="assets/ashok.jpg" alt="Ashok Kumar Mahato" style="width: 100%; height: 100%; object-fit: cover;" />
+              </div>
+              <h3 style="margin-bottom: 0.5rem;">Ashok Kumar Mahato</h3>
+              <p style="font-size: 0.95rem; font-weight: 500;">Frontend Developer</p>
+            </div>
+            <div class="team-card glass-card">
+              <div class="team-avatar" style="border: 3px solid #fff; overflow: hidden; margin-bottom: 1rem;">
+                <img src="assets/Neha.jpg" alt="Neha Kumari Pandey" style="width: 100%; height: 100%; object-fit: cover;" />
+              </div>
+              <h3 style="margin-bottom: 0.5rem;">Neha Kumari Pandey</h3>
+              <p style="font-size: 0.95rem; font-weight: 500;">System & Frontend<br/>Designer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Page -->
+      <div id="contact" class="page">
+        <div class="container">
+          <h1 class="section-title">Contact Us</h1>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+              gap: 2rem;
+              margin: 2rem 0;
+            "
+          >
+            <div class="glass-card">
+              <h2 style="color: var(--primary); margin-bottom: 1.5rem">
+                Send Us a Message
+              </h2>
+              <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" placeholder="Enter your name" />
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="your@email.com" />
+              </div>
+              <div class="form-group">
+                <label>Subject</label>
+                <input type="text" placeholder="What is this about?" />
+              </div>
+              <div class="form-group">
+                <label>Message</label>
+                <textarea placeholder="Your message..."></textarea>
+              </div>
+              <button class="btn btn-primary" style="width: 100%">
+                Send Message
+              </button>
+            </div>
+
+            <div>
+              <div class="glass-card">
+                <h2 style="color: var(--primary); margin-bottom: 1.5rem">
+                  <i class="fas fa-phone-alt"></i> Emergency Numbers
+                </h2>
+                <div style="line-height: 2.5">
+                  <p><strong>National Women Commission:</strong> 1145</p>
+                  <p><strong>Nepal Police:</strong> 100</p>
+                  <p><strong>Women Helpline:</strong> 1098</p>
+                  <p><strong>Child Helpline:</strong> 1098</p>
+                </div>
+              </div>
+
+              <div class="glass-card" style="margin-top: 2rem">
+                <h2 style="color: var(--primary); margin-bottom: 1.5rem">
+                  <i class="fas fa-map-marker-alt"></i> Office Location
+                </h2>
+                <p>Kathmandu, Nepal</p>
+                <p>Email: info@samantaportal.org</p>
+                <div style="margin-top: 1rem">
+                  <div
+                    style="
+                      background: #f0f0f0;
+                      height: 200px;
+                      border-radius: 12px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <i
+                      class="fas fa-map"
+                      style="font-size: 3rem; color: var(--primary)"
+                    ></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <footer>
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Samanta Portal</h3>
+            <p>
+              Empowering communities through technology and legal awareness.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="#" onclick="showPage('home')">Home</a></li>
+              <li>
+                <a href="#" onclick="showPage('complaint')">Report Complaint</a>
+              </li>
+              <li>
+                <a href="#" onclick="showPage('legal-assistant')"
+                  >Legal Assistant</a
+                >
+              </li>
+              <li>
+                <a href="#" onclick="showPage('rights')">Know Your Rights</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Resources</h3>
+            <ul class="footer-links">
+              <li><a href="#" onclick="showPage('about')">About Us</a></li>
+              <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h3>Emergency Support</h3>
+            <p><strong>24/7 Helpline:</strong><br />1145 (Women Commission)</p>
+            <p><strong>Police:</strong> 100</p>
+          </div>
+        </div>
+        <div
+          style="
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+          "
+        >
+          <p>
+            &copy; 2025 Samanta Portal. All rights reserved. Made by Team Kali
+          </p>
+        </div>
+      </footer>
+
+
+  </main>
+  <!-- PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
     <script>
-      window.location.href = "./Frontend/index.html";
+      // Initialize chatbot topics/menu on load so users see options immediately
+      window.addEventListener("load", function () {
+        try {
+          if (typeof ensureChatInitialized === "function") {
+            ensureChatInitialized();
+          }
+        } catch (e) {
+          console.warn("Chat init failed", e);
+        }
+      });
     </script>
-  </head>
-  <body>
-    <p>Redirecting to Samanta Portal...</p>
-  </body>
+</body>
 </html>
